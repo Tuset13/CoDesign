@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">CoDesign</string>
+    <string name="projectes_text">Projectes Actuals</string>
+    <string name="nou_projecte">Nou Projecte</string>
+    <string name="titol_nou_proj">Creació Del Projecte</string>
+    <string name="titol_invi">Invitacions</string>
+    <string name="invi">Invitacions</string>
+    <string name="exit">Sortir</string>
+    <string name="administrador">Projecte amb administrador</string>
+    <string name="nom_projecte">Nom del projecte:</string>
+    <string name="exemple_projecte">Projecte A</string>
+    <string name="participants">Participants: (Separats per ,)</string>
+    <string name="exemple_participants">Joan,Carles,Pablo</string>
+    <string name="crear_projecte">Crear Projecte</string>
+    <string name="tornar">Tornar</string>
 </resources>
