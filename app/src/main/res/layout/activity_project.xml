@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="bottom">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </ImageView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/backgroundColor">
+
+        <Button
+            android:id="@+id/edicio_pissarra"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/edicio_pissarra"
+            android:layout_margin="10dp"
+            android:drawableStart="@drawable/ic_edit"/>
+
+        <Button
+            android:id="@+id/afegir_nota"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/afegir_nota"
+            android:layout_margin="10dp"
+            android:drawableStart="@drawable/ic_sticky_note"/>
+    </LinearLayout>
+
+</LinearLayout>

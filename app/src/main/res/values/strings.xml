@@ -6,6 +6,8 @@
     <string name="titol_invi">Invitacions</string>
     <string name="invi">Invitacions</string>
     <string name="exit">Sortir</string>
+    <string name="menu_part">Afegir participants</string>
+    <string name="menu_exit">Sortir del projecte</string>
     <string name="administrador">Projecte amb administrador</string>
     <string name="nom_projecte">Nom del projecte:</string>
     <string name="exemple_projecte">Projecte A</string>
@@ -13,4 +15,10 @@
     <string name="exemple_participants">Joan,Carles,Pablo</string>
     <string name="crear_projecte">Crear Projecte</string>
     <string name="tornar">Tornar</string>
+    <string name="edicio_pissarra">Editar Pissarra</string>
+    <string name="afegir_nota">Afegir Nota</string>
+    <string name="sizeUp">+ Mida</string>
+    <string name="sizeDown">- Mida</string>
+    <string name="changeColor">Color</string>
+    <string name="undo">Desfer Accio</string>
 </resources>
