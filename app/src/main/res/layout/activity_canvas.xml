@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".CanvasActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,7 +14,7 @@
         <Button
             android:id="@+id/sizeUp"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_weight="1"
             android:text="@string/sizeUp">
         </Button>
@@ -20,7 +22,7 @@
         <Button
             android:id="@+id/sizeDown"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_weight="1"
             android:text="@string/sizeDown">
         </Button>
@@ -28,24 +30,31 @@
         <Button
             android:id="@+id/color"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_weight="1"
             android:text="@string/changeColor">
         </Button>
+
+        <Button
+            android:id="@+id/eraser"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="@string/eraser">
+        </Button>
     </LinearLayout>
-
-    <me.panavtec.drawableview.DrawableView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@id/paint">
-
-    </me.panavtec.drawableview.DrawableView>
+    <com.example.codesign.MyCanvas
+        android:id="@+id/drawing"
+        android:layout_weight="1"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:background="#FFFFFF">
+    </com.example.codesign.MyCanvas>
 
     <Button
-        android:id="@+id/undo"
+        android:id="@+id/tornarProject"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/changeColor">
+        android:layout_height="50dp"
+        android:text="@string/acceptChanges">
     </Button>
-
 </LinearLayout>

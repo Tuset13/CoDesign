@@ -1,5 +1,6 @@
 package com.example.codesign;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -31,6 +32,8 @@ public class NewProjectActivity extends AppCompatActivity implements View.OnClic
 
         switch(view.getId()){
             case R.id.crear:
+                Intent intent = new Intent(NewProjectActivity.this, ProjectActivity.class);
+                startActivity(intent);
                 break;
 
             case R.id.tornar:

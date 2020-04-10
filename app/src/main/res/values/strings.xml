@@ -21,4 +21,6 @@
     <string name="sizeDown">- Mida</string>
     <string name="changeColor">Color</string>
     <string name="undo">Desfer Accio</string>
+    <string name="eraser">Goma</string>
+    <string name="acceptChanges">Acceptar Canvis</string>
 </resources>

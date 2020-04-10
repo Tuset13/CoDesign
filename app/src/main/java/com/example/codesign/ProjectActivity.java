@@ -21,6 +21,9 @@ public class ProjectActivity extends AppCompatActivity implements View.OnClickLi
 
         Button eButton = findViewById(R.id.edicio_pissarra);
         Button anButton = findViewById(R.id.afegir_nota);
+
+        eButton.setOnClickListener(this);
+        anButton.setOnClickListener(this);
     }
 
     @Override
@@ -50,7 +53,8 @@ public class ProjectActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.edicio_pissarra:
-                //TODO
+                Intent intent = new Intent(ProjectActivity.this, CanvasActivity.class);
+                startActivity(intent);
                 break;
 
             case R.id.afegir_nota:
