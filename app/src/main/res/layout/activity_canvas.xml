@@ -14,35 +14,52 @@
         <Button
             android:id="@+id/sizeUp"
             android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:layout_weight="1"
-            android:text="@string/sizeUp">
+            android:text="@string/sizeUp"
+            android:textColor="@color/white"
+            android:background="@drawable/rounded_button_dark"
+            android:layout_margin="5dp"
+            android:fontFamily="@font/worksans_bold">
         </Button>
 
         <Button
             android:id="@+id/sizeDown"
             android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:layout_weight="1"
-            android:text="@string/sizeDown">
+            android:text="@string/sizeDown"
+            android:background="@drawable/rounded_button_dark"
+            android:layout_margin="5dp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/worksans_bold">
         </Button>
 
         <Button
             android:id="@+id/color"
             android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:layout_weight="1"
-            android:text="@string/changeToRed">
+            android:text="@string/changeToRed"
+            android:background="@drawable/rounded_button_dark"
+            android:layout_margin="5dp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/worksans_bold">
         </Button>
 
         <Button
             android:id="@+id/eraser"
             android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_height="40dp"
             android:layout_weight="1"
-            android:text="@string/eraser">
+            android:text="@string/eraser"
+            android:background="@drawable/rounded_button_dark"
+            android:layout_margin="5dp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/worksans_bold">
         </Button>
     </LinearLayout>
+
     <com.example.codesign.Projecte.MyCanvas
         android:id="@+id/drawing"
         android:layout_weight="1"
@@ -55,6 +72,10 @@
         android:id="@+id/tornarProject"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="@string/acceptChanges">
+        android:text="@string/acceptChanges"
+        android:layout_margin="5dp"
+        android:background="@drawable/rounded_button"
+        android:fontFamily="@font/worksans_light"
+        android:textSize="22dp">
     </Button>
 </LinearLayout>

@@ -38,12 +38,13 @@
         android:layout_marginRight="20dp"
         android:layout_marginBottom="15dp"
         android:background="@drawable/input"
+        android:hint="@string/Pass"
+        android:textColor="@color/black"
+        android:inputType="textPassword"
         android:paddingStart="20dp"
-        android:paddingBottom="10dp"
         android:paddingTop="10dp"
         android:paddingEnd="10dp"
-        android:hint="@string/Pass"
-        />
+        android:paddingBottom="10dp" />
 
     <TextView
         android:id="@+id/forgot"
