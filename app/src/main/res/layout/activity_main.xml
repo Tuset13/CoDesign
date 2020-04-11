@@ -11,7 +11,7 @@ android:orientation="vertical">
     android:text="@string/projectes_text"
     android:textSize="34sp"
     android:textColor="@color/secondary"
-    android:fontFamily="@font/worksanslight"
+    android:fontFamily="@font/worksans_light"
     android:background="@color/colorPrimary"
     android:gravity="center"
     />
