@@ -11,6 +11,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -31,8 +32,8 @@ public class ProjectActivity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_project);
 
-        Button eButton = findViewById(R.id.edicio_pissarra);
-        Button anButton = findViewById(R.id.afegir_nota);
+        ImageButton eButton = findViewById(R.id.edicio_pissarra);
+        ImageButton anButton = findViewById(R.id.afegir_nota);
         //imageCanvas = findViewById(R.id.imageCanvas);
         background = findViewById(R.id.backgroundLayout);
 

@@ -20,7 +20,7 @@
         />
 
     <fragment
-        class="com.example.codesign.ProjectListFragment"
+        class="com.example.codesign.InvitacionsListFragment"
         android:layout_height="0dp"
         android:layout_width="match_parent"
         android:layout_marginRight="5dp"
