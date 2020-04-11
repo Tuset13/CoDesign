@@ -15,6 +15,8 @@
     <string name="exemple_participants">Joan</string>
     <string name="crear_projecte">Crear Projecte</string>
     <string name="addPart">Add</string>
+    <string name="toastAdd">Participant afegit!</string>
+
 
     <!--STRINGS DE PANTALLA INVITACIONS-->
     <string name="titol_invi">Invitacions</string>
@@ -41,5 +43,6 @@
 
     <!--STRINGS GLOBALS-->
     <string name="tornar">Tornar</string>
+    <string name="id_key">idkey</string>
 
 </resources>

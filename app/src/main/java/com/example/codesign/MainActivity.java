@@ -2,6 +2,7 @@ package com.example.codesign;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,7 +11,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+import com.example.codesign.Projecte.ProjectActivity;
+
+public class MainActivity extends AppCompatActivity implements ProjectListFragment.ProjecteListener, View.OnClickListener {
 
     Button npButton;
     Button iButton;
@@ -25,6 +28,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         npButton.setOnClickListener(this);
         iButton.setOnClickListener(this);
+
+        ProjectListFragment frgList = (ProjectListFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.FrgListOld);
+        frgList.setProjecteListener(this);
 
     }
 
@@ -61,5 +68,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent1);
                 break;
         }
+    }
+
+    @Override
+    public void onProjecteSeleccionat(String id) {
+        Intent i = new Intent(this, ProjectActivity.class);
+        i.putExtra(getString(R.string.id_key), id);
+        startActivity(i);
     }
 }

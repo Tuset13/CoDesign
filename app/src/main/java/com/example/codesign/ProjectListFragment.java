@@ -1,46 +1,87 @@
 package com.example.codesign;
 
 
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
-import androidx.fragment.app.Fragment;
+import androidx.fragment.app.ListFragment;
 
-import android.view.LayoutInflater;
+
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
+
+import com.example.codesign.DDBB.ProjectesSQLiteHelper;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class ProjectListFragment extends Fragment {
-    ListView listView;
-    ArrayAdapter<String> arrayAdapter;
+public class ProjectListFragment extends ListFragment {
 
-    String[] exampleData = {"Project Alpha", "Project Omega", "Project Gamma"};
 
-    public ProjectListFragment() {
-        // Required empty public constructor
+    private ProjecteListener listener;
+
+    public interface ProjecteListener{
+        void onProjecteSeleccionat(String id);
     }
 
+    public void setProjecteListener(ProjecteListener listener){
+        this.listener = listener;
+    }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_project_list, container, false);
-        listView = view.findViewById(R.id.idListView);
-        arrayAdapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, exampleData);
-        listView.setAdapter(arrayAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //TODO
-            }
-        });
-        return view;
+    public void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
     }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState){
+        super.onActivityCreated(savedInstanceState);
+        getBBDDData();
+    }
+
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id){
+        if(listener!=null){
+            String stringId = String.valueOf(id);
+            listener.onProjecteSeleccionat(stringId);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getBBDDData();
+    }
+
+    @Override
+    public void onAttach(Context context){
+        super.onAttach(context);
+        try{
+            listener = (ProjecteListener) context;
+        }
+        catch (ClassCastException e){
+            throw new ClassCastException(context.toString() +
+                    " must implement OnProjecteSeleccionat()");
+        }
+    }
+
+
+    public void getBBDDData(){
+        ProjectesSQLiteHelper usdbh = new ProjectesSQLiteHelper(
+                getContext(), "Projectes",null, 1);
+        SQLiteDatabase db = usdbh.getReadableDatabase();
+
+        String[] campos = new String[]{"_id", "projectName"};
+        Cursor c = db.query(
+                "Projectes", campos, null, null, null,null,null);
+
+        String[] from = new String[]{"projectName"};
+        int[] to = new int[]{R.id.gamedata1};
+
+        SimpleCursorAdapter adapter = new SimpleCursorAdapter(
+                getContext(), R.layout.fragment_project_data, c, from, to, 0);
+
+        this.setListAdapter(adapter);
+    }
 }
