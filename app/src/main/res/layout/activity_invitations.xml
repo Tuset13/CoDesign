@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp">
+>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/titol_invi"
+        android:fontFamily="@font/worksanslight"
         android:gravity="center"
-        android:textSize="28sp"
-        android:layout_marginTop="35dp"
-        android:layout_marginBottom="35dp"
+        android:textSize="32sp"
+        android:layout_marginTop="26dp"
+        android:layout_marginBottom="30dp"
         android:textColor="@color/black"
         />
 
@@ -22,16 +23,31 @@
         class="com.example.codesign.ProjectListFragment"
         android:layout_height="0dp"
         android:layout_width="match_parent"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp"
         android:id="@+id/FrgListOld"
         tools:layout="@layout/fragment_project_list"
         android:layout_weight="1" />
 
-    <Button
-        android:id="@+id/tornar"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/tornar"
-        android:drawableStart="@drawable/ic_tornar"
-        android:layout_margin="10dp"/>
+        android:orientation="vertical"
+        android:background="@color/colorPrimary">
+
+        <Button
+            android:id="@+id/tornar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_gravity="center"
+            android:background="@drawable/rounded_button"
+            android:padding="7dp"
+            android:elevation="5dp"
+            android:drawablePadding="10dp"
+            android:drawableStart="@drawable/ic_tornar"
+            android:text="@string/backToProject"/>
+    </LinearLayout>
+
 
 </LinearLayout>
