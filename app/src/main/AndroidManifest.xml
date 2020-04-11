@@ -24,6 +24,8 @@
         <activity android:name=".InvitationsActivity"></activity>
         <activity android:name=".Projecte.ProjectActivity"></activity>
         <activity android:name=".Projecte.CanvasActivity"></activity>
+        <activity android:name=".ParticipantsActivity"></activity>
+        <activity android:name=".Projecte.NewNoteActivity"></activity>
     </application>
 
 </manifest>

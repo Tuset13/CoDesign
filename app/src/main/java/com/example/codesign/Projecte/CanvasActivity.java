@@ -8,7 +8,6 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.codesign.Projecte.MyCanvas;
 import com.example.codesign.R;
 
 import java.io.ByteArrayOutputStream;

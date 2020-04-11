@@ -36,6 +36,12 @@
     <string name="white">#FFFFFF</string>
     <string name="red">#FF0000</string>
 
+    <!--STRINGS DE AFEGIR PARTICIPANTS-->
+    <string name="afegirParticipants">Afegir Participants</string>
+    <string name="afegir">Afegir</string>
+    <string name="backToProject">Tornar al Projecte</string>
+    <string name="nouPart">Nou Participant</string>
+
     <!--STRINGS DE MENUS-->
     <string name="exit">Sortir</string>
     <string name="menu_part">Afegir participants</string>

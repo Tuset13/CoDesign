@@ -1,7 +1,6 @@
 package com.example.codesign;
 
 import android.content.ContentValues;
-import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
@@ -13,13 +12,13 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.codesign.DDBB.ProjectesSQLiteHelper;
-import com.example.codesign.Projecte.ProjectActivity;
+
 
 import java.util.ArrayList;
 
 public class NewProjectActivity extends AppCompatActivity implements View.OnClickListener {
 
-    ArrayList<String> partList = new ArrayList<String>();
+    ArrayList<String> partList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
