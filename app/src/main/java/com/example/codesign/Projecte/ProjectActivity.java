@@ -3,6 +3,8 @@ package com.example.codesign.Projecte;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -10,11 +12,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.codesign.MainActivity;
-import com.example.codesign.NewProjectActivity;
 import com.example.codesign.ParticipantsActivity;
 import com.example.codesign.R;
 
@@ -23,7 +23,9 @@ public class ProjectActivity extends AppCompatActivity implements View.OnClickLi
     static final int IMAGE_REQUEST = 1;
 
     private Bitmap imatgeBackground;
-    private ImageView imageCanvas;
+    //private ImageView imageCanvas;
+    private LinearLayout background;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +33,8 @@ public class ProjectActivity extends AppCompatActivity implements View.OnClickLi
 
         Button eButton = findViewById(R.id.edicio_pissarra);
         Button anButton = findViewById(R.id.afegir_nota);
-        imageCanvas = findViewById(R.id.imageCanvas);
+        //imageCanvas = findViewById(R.id.imageCanvas);
+        background = findViewById(R.id.backgroundLayout);
 
         eButton.setOnClickListener(this);
         anButton.setOnClickListener(this);
@@ -82,7 +85,9 @@ public class ProjectActivity extends AppCompatActivity implements View.OnClickLi
             if (resultCode == RESULT_OK) {
                 byte[] byteArray = data.getByteArrayExtra("result");
                 imatgeBackground = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-                imageCanvas.setImageBitmap(imatgeBackground);
+                Drawable backImage = new BitmapDrawable(getResources(), imatgeBackground);
+                background.setBackground(backImage);
+                //imageCanvas.setImageBitmap(imatgeBackground);
             }
         }
     }
