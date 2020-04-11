@@ -13,6 +13,9 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.codesign.MainActivity;
+import com.example.codesign.NewProjectActivity;
+import com.example.codesign.ParticipantsActivity;
 import com.example.codesign.R;
 
 public class ProjectActivity extends AppCompatActivity implements View.OnClickListener  {
@@ -50,7 +53,8 @@ public class ProjectActivity extends AppCompatActivity implements View.OnClickLi
                 return true;
 
             case R.id.participants:
-                //TODO
+                Intent intent1 = new Intent(ProjectActivity.this, ParticipantsActivity.class);
+                startActivity(intent1);
 
             default:
                 return super.onOptionsItemSelected(item);
