@@ -45,4 +45,10 @@
     <string name="tornar">Tornar</string>
     <string name="id_key">idkey</string>
 
+    <!--STRINGS DE LOGIN-->
+    <string name="Login">Inciar Sessió</string>
+    <string name="Mail">Correu Electrònic</string>
+    <string name="Pass">Contraseña</string>
+    <string name="Forgot">Has oblidat la contraseña?</string>
+
 </resources>
