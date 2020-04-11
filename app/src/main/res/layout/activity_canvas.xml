@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CanvasActivity">
+    tools:context=".Projecte.CanvasActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -43,13 +43,13 @@
             android:text="@string/eraser">
         </Button>
     </LinearLayout>
-    <com.example.codesign.MyCanvas
+    <com.example.codesign.Projecte.MyCanvas
         android:id="@+id/drawing"
         android:layout_weight="1"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:background="#FFFFFF">
-    </com.example.codesign.MyCanvas>
+    </com.example.codesign.Projecte.MyCanvas>
 
     <Button
         android:id="@+id/tornarProject"

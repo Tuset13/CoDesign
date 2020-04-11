@@ -1,14 +1,15 @@
-package com.example.codesign;
+package com.example.codesign.Projecte;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.codesign.Projecte.MyCanvas;
+import com.example.codesign.R;
 
 import java.io.ByteArrayOutputStream;
 

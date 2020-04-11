@@ -1,20 +1,25 @@
 <resources>
     <string name="app_name">CoDesign</string>
+
+    <!--STRINGS DE PANTALLA PRINCIPAL-->
     <string name="projectes_text">Projectes Actuals</string>
     <string name="nou_projecte">Nou Projecte</string>
-    <string name="titol_nou_proj">Creació Del Projecte</string>
-    <string name="titol_invi">Invitacions</string>
     <string name="invi">Invitacions</string>
-    <string name="exit">Sortir</string>
-    <string name="menu_part">Afegir participants</string>
-    <string name="menu_exit">Sortir del projecte</string>
-    <string name="administrador">Projecte amb administrador</string>
+
+    <!--STRINGS DE PANTALLA CREACIO DE PROJECTES-->
+    <string name="titol_nou_proj">Creació Del Projecte</string>
     <string name="nom_projecte">Nom del projecte:</string>
+    <string name="administrador">Projecte amb administrador</string>
     <string name="exemple_projecte">Projecte A</string>
-    <string name="participants">Participants: (Separats per ,)</string>
-    <string name="exemple_participants">Joan,Carles,Pablo</string>
+    <string name="participants">Participants: (Fer ADD per cadascun)</string>
+    <string name="exemple_participants">Joan</string>
     <string name="crear_projecte">Crear Projecte</string>
-    <string name="tornar">Tornar</string>
+    <string name="addPart">Add</string>
+
+    <!--STRINGS DE PANTALLA INVITACIONS-->
+    <string name="titol_invi">Invitacions</string>
+
+    <!--STRINGS DE PANTALLA PROJECTE-->
     <string name="edicio_pissarra">Editar Pissarra</string>
     <string name="afegir_nota">Afegir Nota</string>
     <string name="sizeUp">+ Mida</string>
@@ -28,4 +33,13 @@
     <string name="black">#000000</string>
     <string name="white">#FFFFFF</string>
     <string name="red">#FF0000</string>
+
+    <!--STRINGS DE MENUS-->
+    <string name="exit">Sortir</string>
+    <string name="menu_part">Afegir participants</string>
+    <string name="menu_exit">Sortir del projecte</string>
+
+    <!--STRINGS GLOBALS-->
+    <string name="tornar">Tornar</string>
+
 </resources>

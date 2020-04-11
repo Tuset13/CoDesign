@@ -1,4 +1,4 @@
-package com.example.codesign;
+package com.example.codesign.Projecte;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.codesign.R;
 
 public class ProjectActivity extends AppCompatActivity implements View.OnClickListener  {
 

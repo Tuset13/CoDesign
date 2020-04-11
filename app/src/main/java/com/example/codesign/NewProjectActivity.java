@@ -8,6 +8,8 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.codesign.Projecte.ProjectActivity;
+
 public class NewProjectActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
@@ -17,9 +19,11 @@ public class NewProjectActivity extends AppCompatActivity implements View.OnClic
 
         Button buttonCrear = findViewById(R.id.crear);
         Button buttonTornar = findViewById(R.id.tornar);
+        Button buttonAdd = findViewById(R.id.addPart);
 
         buttonTornar.setOnClickListener(this);
         buttonCrear.setOnClickListener(this);
+        buttonAdd.setOnClickListener(this);
     }
 
     @Override
@@ -38,6 +42,9 @@ public class NewProjectActivity extends AppCompatActivity implements View.OnClic
 
             case R.id.tornar:
                 finish();
+                break;
+
+            case R.id.addPart:
                 break;
         }
     }

@@ -1,4 +1,4 @@
-package com.example.codesign;
+package com.example.codesign.Projecte;
 
 import android.content.Context;
 import android.graphics.Bitmap;

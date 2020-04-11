@@ -26,10 +26,10 @@
         <activity android:name=".InvitationsActivity">
 
         </activity>
-        <activity android:name=".ProjectActivity">
+        <activity android:name=".Projecte.ProjectActivity">
 
         </activity>
-        <activity android:name=".CanvasActivity">
+        <activity android:name=".Projecte.CanvasActivity">
 
         </activity>
     </application>
