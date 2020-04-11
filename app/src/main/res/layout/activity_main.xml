@@ -10,8 +10,8 @@ android:orientation="vertical">
     android:layout_height="65dp"
     android:text="@string/projectes_text"
     android:textSize="28sp"
-    android:background="@color/backgroundColor"
-    android:gravity="center_vertical"
+    android:background="@color/colorPrimary"
+    android:gravity="center"
     />
 
 <fragment
@@ -26,24 +26,29 @@ android:orientation="vertical">
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:background="@color/backgroundColor">
+    android:background="@color/colorPrimary">
+
     <Button
         android:id="@+id/NouProjecte"
-        android:layout_width="0dp"
-        android:layout_weight="1"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:text="@string/nou_projecte"
         android:layout_margin="10dp"
+        android:paddingLeft="15dp"
+        android:background="@drawable/rounded_button"
         android:drawableStart="@drawable/ic_new_project"/>
 
     <Button
         android:id="@+id/Invitacions"
-        android:layout_width="0dp"
-        android:layout_weight="1"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:text="@string/invi"
+        android:background="@drawable/rounded_button"
+        android:paddingLeft="15dp"
         android:layout_margin="10dp"
-        android:drawableStart="@drawable/ic_invitacions"/>
+        android:drawableStart="@drawable/ic_mail"/>
 </LinearLayout>
 
 </LinearLayout>
