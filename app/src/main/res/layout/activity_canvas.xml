@@ -14,7 +14,7 @@
         <Button
             android:id="@+id/sizeUp"
             android:layout_width="0dp"
-            android:layout_height="40dp"
+            android:layout_height="35dp"
             android:layout_weight="1"
             android:text="@string/sizeUp"
             android:textColor="@color/white"
@@ -26,7 +26,7 @@
         <Button
             android:id="@+id/sizeDown"
             android:layout_width="0dp"
-            android:layout_height="40dp"
+            android:layout_height="35dp"
             android:layout_weight="1"
             android:text="@string/sizeDown"
             android:background="@drawable/rounded_button_dark"
@@ -38,7 +38,7 @@
         <Button
             android:id="@+id/color"
             android:layout_width="0dp"
-            android:layout_height="40dp"
+            android:layout_height="35dp"
             android:layout_weight="1"
             android:text="@string/changeToRed"
             android:background="@drawable/rounded_button_dark"
@@ -50,7 +50,7 @@
         <Button
             android:id="@+id/eraser"
             android:layout_width="0dp"
-            android:layout_height="40dp"
+            android:layout_height="35dp"
             android:layout_weight="1"
             android:text="@string/eraser"
             android:background="@drawable/rounded_button_dark"

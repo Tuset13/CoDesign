@@ -10,7 +10,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -22,10 +21,13 @@ import com.example.codesign.R;
 public class ProjectActivity extends AppCompatActivity implements View.OnClickListener  {
 
     static final int IMAGE_REQUEST = 1;
+    static final int TEXT_REQUEST = 2;
 
+    private String newNote;
     private Bitmap imatgeBackground;
-    //private ImageView imageCanvas;
-    private LinearLayout background;
+    private ImageView imageCanvas;
+    //private LinearLayout background;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +36,8 @@ public class ProjectActivity extends AppCompatActivity implements View.OnClickLi
 
         ImageButton eButton = findViewById(R.id.edicio_pissarra);
         ImageButton anButton = findViewById(R.id.afegir_nota);
-        //imageCanvas = findViewById(R.id.imageCanvas);
-        background = findViewById(R.id.backgroundLayout);
+        imageCanvas = findViewById(R.id.imageCanvas);
+        //background = findViewById(R.id.backgroundLayout);
 
         eButton.setOnClickListener(this);
         anButton.setOnClickListener(this);
@@ -74,7 +76,8 @@ public class ProjectActivity extends AppCompatActivity implements View.OnClickLi
                 break;
 
             case R.id.afegir_nota:
-                //TODO
+                Intent intent1 = new Intent(ProjectActivity.this, NewNoteActivity.class);
+                startActivityForResult(intent1, TEXT_REQUEST);
                 break;
         }
     }
@@ -82,13 +85,15 @@ public class ProjectActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == IMAGE_REQUEST) {
-            if (resultCode == RESULT_OK) {
+        if (resultCode == RESULT_OK) {
+            if (requestCode == IMAGE_REQUEST) {
                 byte[] byteArray = data.getByteArrayExtra("result");
                 imatgeBackground = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-                Drawable backImage = new BitmapDrawable(getResources(), imatgeBackground);
-                background.setBackground(backImage);
-                //imageCanvas.setImageBitmap(imatgeBackground);
+                //Drawable backImage = new BitmapDrawable(getResources(), imatgeBackground);
+                //background.setBackground(backImage);
+                imageCanvas.setImageBitmap(imatgeBackground);
+            }else{
+                newNote = data.getStringExtra("result");
             }
         }
     }

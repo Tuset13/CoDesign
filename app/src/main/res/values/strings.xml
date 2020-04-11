@@ -20,6 +20,7 @@
 
     <!--STRINGS DE PANTALLA INVITACIONS-->
     <string name="titol_invi">Invitacions</string>
+    <string name="backToList">Tornar a la Llista</string>
 
     <!--STRINGS DE PANTALLA PROJECTE-->
     <string name="edicio_pissarra">Editar Pissarra</string>
@@ -35,6 +36,12 @@
     <string name="black">#000000</string>
     <string name="white">#FFFFFF</string>
     <string name="red">#FF0000</string>
+
+    <!--STRINGS DE PANTALLA NOTES-->
+    <string name="textMoure">Sacsa el dispositiu per a borrar el text ràpidament</string>
+    <string name="changeText">No tens cap accelerometre conectat en el dispositiu!</string>
+    <string name="sacsat">Text Borrat</string>
+    <string name="acceptNote">Acceptar</string>
 
     <!--STRINGS DE AFEGIR PARTICIPANTS-->
     <string name="afegirParticipants">Afegir Participants</string>
