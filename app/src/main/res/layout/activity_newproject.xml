@@ -5,6 +5,7 @@
     >
 
     <LinearLayout
+        android:id="@+id/top_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
@@ -23,83 +24,100 @@
             />
     </LinearLayout>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bot_layout"
+        android:layout_below="@+id/top_layout"
+        android:layout_marginTop="20dp"
+        >
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/nom_projecte"
-            android:textSize="20sp"
-            android:textColor="@color/black"
-            />
-
-        <EditText
-            android:id="@+id/editText1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/exemple_projecte"
-            />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/participants"
-            android:textSize="20sp"
-            android:layout_marginTop="20dp"
-            android:textColor="@color/black"
-            />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <EditText
-                android:id="@+id/editText2"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:hint="@string/exemple_participants">
-            </EditText>
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical">
 
-            <Button
-                android:id="@+id/addPart"
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/nom_projecte"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <EditText
+                android:id="@+id/editText1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/input"
+                android:hint="@string/exemple_projecte"
+                android:layout_marginTop="5dp"
+                android:padding="10dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/participants"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/editText2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/input"
+                    android:hint="@string/exemple_participants"
+                    android:padding="10dp">
+
+                </EditText>
+
+                <Button
+                    android:id="@+id/addPart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/rounded_button"
+                    android:fontFamily="@font/worksans_bold"
+                    android:text="@string/addPart"
+                    android:textColor="@color/white">
+                </Button>
+            </LinearLayout>
+
+            <CheckBox
+                android:id="@+id/admin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/addPart"
-                android:textColor="@color/white"
+                android:layout_marginTop="20dp"
+                android:text="@string/administrador">
+            </CheckBox>
+
+            <Button
+                android:id="@+id/crear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
                 android:background="@drawable/rounded_button"
-                android:fontFamily="@font/worksans_bold">
-            </Button>
+                android:paddingLeft="40dp"
+                android:paddingRight="40dp"
+                android:text="@string/crear_projecte"
+                android:textColor="@color/white" />
+
         </LinearLayout>
-        <CheckBox
-            android:id="@+id/admin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/administrador"
-            android:layout_marginTop="20dp">
-        </CheckBox>
-
-        <Button
-            android:id="@+id/crear"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/crear_projecte"
-            android:background="@drawable/rounded_button"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:paddingLeft="40dp"
-            android:paddingRight="40dp"
-            android:textColor="@color/white"
-            />
-
-    </LinearLayout>
+    </ScrollView>
 
     <LinearLayout
+        android:id="@+id/bot_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
