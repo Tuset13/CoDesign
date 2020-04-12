@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -35,7 +36,25 @@ public class ProjectActivity extends AppCompatActivity implements View.OnClickLi
     private String newNote;
     private Bitmap imatgeBackground;
     private ImageView imageCanvas;
-    //private LinearLayout background;
+    private LinearLayout background;
+
+    private String[] llistaNotes = new String[12];
+    private int numNotes = 0;
+
+    //REFERENCIES DE LA GRID HARDCODEJADA
+    TextView textGrid0;
+    TextView textGrid1;
+    TextView textGrid2;
+    TextView textGrid3;
+    TextView textGrid4;
+    TextView textGrid5;
+    TextView textGrid6;
+    TextView textGrid7;
+    TextView textGrid8;
+    TextView textGrid9;
+    TextView textGrid10;
+    TextView textGrid11;
+    TextView[] textGrid;
 
 
     @Override
@@ -45,11 +64,13 @@ public class ProjectActivity extends AppCompatActivity implements View.OnClickLi
 
         ImageButton eButton = findViewById(R.id.edicio_pissarra);
         ImageButton anButton = findViewById(R.id.afegir_nota);
-        imageCanvas = findViewById(R.id.imageCanvas);
-        //background = findViewById(R.id.backgroundLayout);
+        //imageCanvas = findViewById(R.id.imageCanvas);
+        background = findViewById(R.id.backgroundLayout);
 
         eButton.setOnClickListener(this);
         anButton.setOnClickListener(this);
+
+        instanciesHardcodeGridiNotes();
     }
 
     @Override
@@ -124,13 +145,17 @@ public class ProjectActivity extends AppCompatActivity implements View.OnClickLi
                 // INPORPORACIO DE LA IMATGE REBUDA
                 byte[] byteArray = data.getByteArrayExtra("result");
                 imatgeBackground = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-                //Drawable backImage = new BitmapDrawable(getResources(), imatgeBackground);
-                //background.setBackground(backImage);
-                imageCanvas.setImageBitmap(imatgeBackground);
-            }else{
-
+                Drawable backImage = new BitmapDrawable(getResources(), imatgeBackground);
+                background.setBackground(backImage);
+                //imageCanvas.setImageBitmap(imatgeBackground);
+            }else if(requestCode == TEXT_REQUEST){
                 // TEXT DE LA NOVA NOTA
                 newNote = data.getStringExtra("result");
+                llistaNotes[numNotes] = newNote;
+
+                //PART HARCODEJADA PER A SIMULAR LA REPRESENTACIO DE LES NOTES SOBRE EL CANVAS
+                //EL RESULTAT FINAL EN LA SEGONA ENTREGA NO ES VEURE AIXI NI ESTARA FET AIXI
+                hardcodeGridiNotes();
             }
         }
     }
@@ -159,5 +184,30 @@ public class ProjectActivity extends AppCompatActivity implements View.OnClickLi
             Toast.makeText(this, R.string.borrarToast, Toast.LENGTH_LONG).show();
         }
         db.close();
+    }
+
+    public void instanciesHardcodeGridiNotes(){
+        textGrid0 = findViewById(R.id.textGrid0);
+        textGrid1 = findViewById(R.id.textGrid1);
+        textGrid2 = findViewById(R.id.textGrid2);
+        textGrid3 = findViewById(R.id.textGrid3);
+        textGrid4 = findViewById(R.id.textGrid4);
+        textGrid5 = findViewById(R.id.textGrid5);
+        textGrid6 = findViewById(R.id.textGrid6);
+        textGrid7 = findViewById(R.id.textGrid7);
+        textGrid8 = findViewById(R.id.textGrid8);
+        textGrid9 = findViewById(R.id.textGrid9);
+        textGrid10 = findViewById(R.id.textGrid10);
+        textGrid11 = findViewById(R.id.textGrid11);
+        textGrid = new TextView[]{textGrid0, textGrid1, textGrid2, textGrid3, textGrid4, textGrid5,
+                                                textGrid6, textGrid7, textGrid8, textGrid9, textGrid10, textGrid11};
+    }
+
+    public void hardcodeGridiNotes(){
+        if(numNotes < 9){
+            textGrid[numNotes].setText(newNote);
+            textGrid[numNotes].setBackgroundColor(getResources().getColor(R.color.notesColor));
+            numNotes++;
+        }
     }
 }

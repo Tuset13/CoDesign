@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:gravity="bottom">
 
-
+    <!-- -
     <ImageView
         android:id="@+id/imageCanvas"
         android:layout_weight="1"
@@ -16,8 +16,128 @@
         android:layout_marginLeft="2dp"
         android:layout_marginRight="2dp">
     </ImageView>
+    <!- -->
 
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/textGrid0"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+                android:gravity="center">
+            </TextView>
+            <TextView
+                android:id="@+id/textGrid1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+                android:gravity="center">
+            </TextView>
+            <TextView
+                android:id="@+id/textGrid2"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+                android:gravity="center">
+            </TextView>
+            <TextView
+                android:id="@+id/textGrid3"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+                android:gravity="center">
+            </TextView>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/textGrid4"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+                android:gravity="center">
+            </TextView>
+            <TextView
+                android:id="@+id/textGrid5"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+                android:gravity="center">
+            </TextView>
+            <TextView
+                android:id="@+id/textGrid6"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+                android:gravity="center">
+            </TextView>
+            <TextView
+                android:id="@+id/textGrid7"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+                android:gravity="center">
+            </TextView>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/textGrid8"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+                android:gravity="center">
+            </TextView>
+            <TextView
+                android:id="@+id/textGrid9"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+                android:gravity="center">
+            </TextView>
+            <TextView
+                android:id="@+id/textGrid10"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+                android:gravity="center">
+            </TextView>
+            <TextView
+                android:id="@+id/textGrid11"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_margin="10dp"
+                android:gravity="center">
+            </TextView>
+        </LinearLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
