@@ -28,10 +28,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View view) {
-        /*//COMPROVAR SI EDITTEXTS BUITS
+        /*//COMPROVAR SI EDITTEXTS BUITS, DESHABILITAT DE MOMENT PER COMODITAT
         if(isEmpty(mEditText) || isEmpty(pEditText)){
             return;
         }*/
+
+        //REDIRECCIO A LA PANTALLA D'INICI
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
     }

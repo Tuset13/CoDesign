@@ -48,7 +48,7 @@ public class CanvasActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View view) {
         switch(view.getId()){
 
-            //BOTO DE LA GOMA
+            // BOTO DE LA GOMA
             case R.id.eraser:
                 String buttonText = (String) eraser.getText();
                 if(buttonText == buttonEraserText){
@@ -64,7 +64,7 @@ public class CanvasActivity extends AppCompatActivity implements View.OnClickLis
                 }
                 break;
 
-            //BOTONS PER CONTROLAR MIDA
+            // BOTONS PER CONTROLAR MIDA
             case R.id.sizeUp:
                 float newBigBrushSize = myCanvas.getBrushSize();
                 newBigBrushSize += 2;
@@ -78,7 +78,7 @@ public class CanvasActivity extends AppCompatActivity implements View.OnClickLis
                 myCanvas.setLastBrushSize(newLowBrushSize);
                 break;
 
-             //BOTO PER CANVIAR COLOR
+             // BOTO PER CANVIAR COLOR
             case R.id.color:
                 if(eraser.getText() == buttonEraserText){
                     if(changeColor.getText() == buttonColorText){
@@ -91,7 +91,7 @@ public class CanvasActivity extends AppCompatActivity implements View.OnClickLis
                 }
                 break;
 
-            //BOTO PER TORNAR AL PROJECTE I RETORNAR LA IMATGE RESULTANT
+            // BOTO PER TORNAR AL PROJECTE I RETORNAR LA IMATGE RESULTANT
             case R.id.tornarProject:
                 retornarImatge();
                 finish();
@@ -102,9 +102,11 @@ public class CanvasActivity extends AppCompatActivity implements View.OnClickLis
     public void retornarImatge(){
         myCanvas.setDrawingCacheEnabled(true);
         Bitmap result = myCanvas.getDrawingCache();
+
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         result.compress(Bitmap.CompressFormat.PNG, 100, stream);
         byte[] byteArray = stream.toByteArray();
+
         Intent intent=new Intent();
         intent.putExtra("result",byteArray);
         setResult(RESULT_OK, intent);

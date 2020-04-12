@@ -49,7 +49,7 @@ public class NewProjectActivity extends AppCompatActivity implements View.OnClic
                 if(isEmpty(editNom)){
                     break;
                 }
-                //GUARDAR PROJECTE NOU EN DB
+                //GUARDAR PROJECTE NOU EN DB I TORNAR A LA LLISTA DE PROJECTES
                 ProjectesSQLiteHelper usdbh = new ProjectesSQLiteHelper(this, "Projectes",null, 1);
                 SQLiteDatabase db = usdbh.getWritableDatabase();
                 if(db != null){

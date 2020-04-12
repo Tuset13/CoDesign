@@ -37,11 +37,15 @@ public class ProjectListFragment extends ListFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
+
+        //OBTENIM LES DADES DE LA BASE DE DADES
         getBBDDData();
     }
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id){
+        //EN SELECCIONAR UN ITEM DE LA LLISTA, CRIDEM AL LISTENER AGREGAT DESDE LA MAINACTIVITY
+        //I LI PASSEM LA SEVA ID
         if(listener!=null){
             String stringId = String.valueOf(id);
             listener.onProjecteSeleccionat(stringId);
@@ -82,6 +86,7 @@ public class ProjectListFragment extends ListFragment {
         SimpleCursorAdapter adapter = new SimpleCursorAdapter(
                 getContext(), R.layout.fragment_project_data, c, from, to, 0);
 
+        //AFEGIM LA LLISTA EXTRETA DE LA BASE DE DADES AL LISTVIEW
         this.setListAdapter(adapter);
     }
 }

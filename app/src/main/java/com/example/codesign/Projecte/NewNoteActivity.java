@@ -38,6 +38,7 @@ public class NewNoteActivity extends AppCompatActivity implements View.OnClickLi
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 
+        //CREEM ELS LISTENERS PER AL ACCELEROMETRE
         createListeners();
     }
 
@@ -45,6 +46,8 @@ public class NewNoteActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View view) {
         switch(view.getId()){
             case R.id.acceptarNote:
+
+                //RETORNEM EL STRING RESULTANT COM A VALOR
                 String result = String.valueOf(editNote.getText());
                 Intent intent=new Intent();
                 intent.putExtra("result", result);
@@ -62,6 +65,7 @@ public class NewNoteActivity extends AppCompatActivity implements View.OnClickLi
 
             Sensor sensorAcc = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
+            //COMPROVEM QUE DISPOSA D'UN ACCELEROMETRE
             if (sensorAcc != null) {
                 sensorManager.registerListener(this, sensorAcc, SensorManager.SENSOR_DELAY_NORMAL);
             } else {
@@ -75,7 +79,7 @@ public class NewNoteActivity extends AppCompatActivity implements View.OnClickLi
     public void onSensorChanged(SensorEvent event) {
 
         float[] values = event.values;
-        // Movement
+        // COMPROVEM QUE HI HA HAGUT UN MOVIMENT CONSIDERABLE
         float x = values[0];
         float y = values[1];
         float z = values[2];
@@ -84,12 +88,13 @@ public class NewNoteActivity extends AppCompatActivity implements View.OnClickLi
                 / (SensorManager.GRAVITY_EARTH * SensorManager.GRAVITY_EARTH);
         long actualTime = System.currentTimeMillis();
         if (accelationSquareRoot >= 2) {
+            // ESTABLIM UN TEMPS DE MARGE ENTRE CADA POSSIBLE INTERACCIO
             if (actualTime - lastUpdate < 200) {
                 return;
             }
 
             lastUpdate = actualTime;
-
+            // BORREM EL TEXT
             editNote.setText("");
             Toast.makeText(this, R.string.sacsat, Toast.LENGTH_SHORT).show();
         }

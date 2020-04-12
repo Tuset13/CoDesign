@@ -34,32 +34,38 @@ public class MyCanvas extends View {
         invalidate();
     }
 
+    //SUBSTITUIR EL PINZELL PER LA GOMA
     public void setErase(boolean isErase){
         erase = isErase;
         if(erase) drawPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
         else drawPaint.setXfermode(null);
     }
 
+    //SETTER DE LA MIDA ACTUAL DEL PINZELL
     public void setBrushSize(float newSize) {
         float pixelAmount = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, newSize, getResources().getDisplayMetrics());
         brushSize = pixelAmount;
         drawPaint.setStrokeWidth(brushSize);
     }
 
+    //SETTER PER RECORDAR LA ULTIMA MIDA
     public void setLastBrushSize(float lastSize){
         lastBrushSize = lastSize;
     }
 
+    //GETTER DE LA MIDA DEL PINZELL
     public float getBrushSize(){
         return lastBrushSize;
     }
 
+    //SETTER DEL COLOR
     public void setColor(String newColor){
         invalidate();
         paintColor = Color.parseColor(newColor);
         drawPaint.setColor(paintColor);
     }
 
+    //GETTER DEL COLOR
     public int getColor(){
         return paintColor;
     }
@@ -82,6 +88,7 @@ public class MyCanvas extends View {
         float xPos = event.getX();
         float yPos = event.getY();
 
+        //CONTROL DEL CURSOR QUAN TOQUEM LA PANTALLA
         switch (event.getAction()){
             case MotionEvent.ACTION_DOWN:
                 drawPath.moveTo(xPos,yPos);
@@ -101,6 +108,7 @@ public class MyCanvas extends View {
     }
 
     public void setupDrawing(){
+        //INSTANCIACIO DELS VALORS INICIALS
         drawPath = new Path();
         drawPaint = new Paint();
         drawPaint.setColor(paintColor);
