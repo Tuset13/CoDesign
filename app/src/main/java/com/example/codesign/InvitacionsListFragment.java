@@ -20,6 +20,7 @@ public class InvitacionsListFragment extends Fragment {
                              Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.fragment_project_list, container, false);
 
+        //LISTA HARCODEJADA EN REPRESENTACIO DE LES INVITACIONS REBUDES
         String[] exemples = {"Projecte Alpha", "Projecte Beta", "Projecte Gamma"};
 
         ListView listView = view.findViewById(R.id.idListView);

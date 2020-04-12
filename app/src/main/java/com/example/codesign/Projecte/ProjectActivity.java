@@ -81,6 +81,7 @@ public class ProjectActivity extends AppCompatActivity implements View.OnClickLi
                 newDialog.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        // EN CAS DE DIR QUE SI, BORREM EL PROJECTE
                         borrarProjecte();
                         finish();
                     }
@@ -103,6 +104,7 @@ public class ProjectActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.edicio_pissarra:
+                // ENVIEM LA IMATGE ACTUAL PER A PROSEGUIR AMB LA SEVA EDICIO
                 enviarImatge();
                 break;
 
@@ -119,7 +121,7 @@ public class ProjectActivity extends AppCompatActivity implements View.OnClickLi
         if (resultCode == RESULT_OK) {
             if (requestCode == IMAGE_REQUEST) {
 
-                //INPORPORACIO DE LA IMATGE REBUDA
+                // INPORPORACIO DE LA IMATGE REBUDA
                 byte[] byteArray = data.getByteArrayExtra("result");
                 imatgeBackground = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
                 //Drawable backImage = new BitmapDrawable(getResources(), imatgeBackground);
@@ -127,13 +129,15 @@ public class ProjectActivity extends AppCompatActivity implements View.OnClickLi
                 imageCanvas.setImageBitmap(imatgeBackground);
             }else{
 
-                //TEXT DE LA NOVA NOTA
+                // TEXT DE LA NOVA NOTA
                 newNote = data.getStringExtra("result");
             }
         }
     }
 
     public void enviarImatge(){
+        //TODO
+        //DE MOMENT EN DESUS, PREPARAT PER A LA SEGÜENT ENTREGA
         Intent intent = new Intent(ProjectActivity.this, CanvasActivity.class);
         if(imatgeBackground != null){
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -145,9 +149,11 @@ public class ProjectActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     public void borrarProjecte(){
+        // INSTANCIEM LA DB
         ProjectesSQLiteHelper usdbh = new ProjectesSQLiteHelper(this, "Projectes",null, 1);
         SQLiteDatabase db = usdbh.getWritableDatabase();
         if(db != null){
+            // BORREM EL PROJECTE RECUPERANT LA ID A TRAVES DEL INTENT
             String id = getIntent().getStringExtra(getString(R.string.id_key));
             db.delete("Projectes", "_Id=?", new String[]{id});
             Toast.makeText(this, R.string.borrarToast, Toast.LENGTH_LONG).show();

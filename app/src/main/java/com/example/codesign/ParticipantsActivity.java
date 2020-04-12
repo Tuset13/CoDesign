@@ -35,11 +35,12 @@ public class ParticipantsActivity extends AppCompatActivity implements View.OnCl
                 }
 
                 //AFEGIR PARTICIPANT AL PROJECTE
-                //SEGÜENT ENTREGA DE FORMA REAL
+                //EN LA SEGÜENT ENTREGA ES FARA DE FORMA REAL
                 Toast.makeText(this, R.string.toastAdd, Toast.LENGTH_SHORT).show();
                 editText.setText("");
                 break;
             case R.id.tornarProj:
+                //TORNAR A LA VISTA DEL PROJECTE
                 finish();
                 break;
         }
