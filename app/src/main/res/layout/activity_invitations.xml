@@ -9,14 +9,13 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="65dp"
         android:text="@string/titol_invi"
         android:fontFamily="@font/worksans_light"
+        android:background="@color/colorPrimary"
+        android:textColor="@color/secondary"
         android:gravity="center"
-        android:textSize="32sp"
-        android:layout_marginTop="26dp"
-        android:layout_marginBottom="30dp"
-        android:textColor="@color/black"
+        android:textSize="34sp"
         />
 
     <fragment
@@ -25,6 +24,8 @@
         android:layout_width="match_parent"
         android:layout_marginRight="5dp"
         android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:id="@+id/FrgListOld"
         tools:layout="@layout/fragment_project_list"
         android:layout_weight="1" />

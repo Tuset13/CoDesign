@@ -2,99 +2,112 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp">
+    android:layout_height="match_parent">
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="65dp"
         android:text="@string/titol_nou_proj"
         android:gravity="center"
-        android:textSize="32sp"
-        android:layout_marginTop="35dp"
+        android:textSize="34sp"
         android:layout_marginBottom="35dp"
-        android:textColor="@color/black"
+        android:textColor="@color/secondary"
         android:fontFamily="@font/worksans_light"
-        />
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/nom_projecte"
-        android:textSize="20sp"
-        android:textColor="@color/black"
+        android:background="@color/colorPrimary"
         />
 
-    <EditText
-        android:id="@+id/editText1"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/exemple_projecte"
-        >
-    </EditText>
+        android:layout_height="555dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/participants"
-        android:textSize="20sp"
-        android:layout_marginTop="20dp"
-        android:textColor="@color/black"
-        />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/nom_projecte"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            />
+
+        <EditText
+            android:id="@+id/editText1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/exemple_projecte"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/participants"
+            android:textSize="20sp"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/black"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/editText2"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:hint="@string/exemple_participants">
+            </EditText>
+
+            <Button
+                android:id="@+id/addPart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/addPart"
+                android:textColor="@color/white"
+                android:background="@drawable/rounded_button"
+                android:fontFamily="@font/worksans_bold">
+            </Button>
+        </LinearLayout>
+        <CheckBox
+            android:id="@+id/admin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/administrador"
+            android:layout_marginTop="20dp">
+        </CheckBox>
+
+        <Button
+            android:id="@+id/crear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/crear_projecte"
+            android:background="@drawable/rounded_button"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
+            android:textColor="@color/white"
+            />
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <EditText
-            android:id="@+id/editText2"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="@string/exemple_participants">
-        </EditText>
+        android:background="@color/colorPrimary"
+        android:layout_gravity="end"
+        android:orientation="vertical">
 
         <Button
-            android:id="@+id/addPart"
-            android:layout_width="wrap_content"
+            android:id="@+id/tornar"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/addPart"
+            android:text="@string/tornar"
             android:background="@drawable/rounded_button"
-            android:fontFamily="@font/worksans_bold">
-        </Button>
-
+            android:layout_margin="20dp"
+            android:paddingLeft="50dp"
+            android:paddingRight="50dp"
+            android:textColor="@color/white"/>
     </LinearLayout>
-
-    <CheckBox
-        android:id="@+id/admin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/administrador"
-        android:layout_marginTop="20dp">
-    </CheckBox>
-
-    <Button
-        android:id="@+id/crear"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/crear_projecte"
-        android:background="@drawable/rounded_button_dark"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:paddingLeft="40dp"
-        android:paddingRight="40dp"
-        android:textColor="@color/white"
-        />
-
-    <Button
-        android:id="@+id/tornar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/tornar"
-        android:background="@drawable/rounded_button_dark"
-        android:layout_margin="20dp"
-        android:paddingLeft="50dp"
-        android:paddingRight="50dp"
-        android:textColor="@color/white"/>
 
 </LinearLayout>
