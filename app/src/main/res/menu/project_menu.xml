@@ -4,4 +4,6 @@
         android:title="@string/menu_exit"></item>
     <item android:id="@+id/participants"
         android:title="@string/menu_part"></item>
+    <item android:id="@+id/borrar"
+        android:title="@string/menu_borrar"></item>
 </menu>

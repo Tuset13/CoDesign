@@ -114,4 +114,9 @@ public class MyCanvas extends View {
         lastBrushSize = brushSize;
         drawPaint.setStrokeWidth(brushSize);
     }
+
+    public void setImage(Bitmap newImage){
+        //TODO
+        //EN LA SEGÜENT ENTREGA
+    }
 }

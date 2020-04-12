@@ -1,6 +1,7 @@
 package com.example.codesign;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,6 +29,13 @@ public class ParticipantsActivity extends AppCompatActivity implements View.OnCl
     public void onClick(View view) {
         switch(view.getId()){
             case R.id.afegirPart:
+                //COMPROVAR SI EDITTEXT BUIT
+                if(isEmpty(editText)){
+                    break;
+                }
+
+                //AFEGIR PARTICIPANT AL PROJECTE
+                //SEGÜENT ENTREGA DE FORMA REAL
                 Toast.makeText(this, R.string.toastAdd, Toast.LENGTH_SHORT).show();
                 editText.setText("");
                 break;
@@ -35,5 +43,15 @@ public class ParticipantsActivity extends AppCompatActivity implements View.OnCl
                 finish();
                 break;
         }
+    }
+
+    public boolean isEmpty(EditText editText){
+        String strUserName = editText.getText().toString();
+
+        if(TextUtils.isEmpty(strUserName)) {
+            editText.setError(getString(R.string.empty));
+            return true;
+        }
+        return false;
     }
 }

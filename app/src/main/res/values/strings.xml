@@ -33,6 +33,7 @@
     <string name="eraser">Goma</string>
     <string name="brush">Pinzell</string>
     <string name="acceptChanges">Acceptar Canvis</string>
+    <string name="borrarToast">Projecte Borrat</string>
     <string name="black">#000000</string>
     <string name="white">#FFFFFF</string>
     <string name="red">#FF0000</string>
@@ -53,11 +54,18 @@
     <string name="exit">Sortir</string>
     <string name="menu_part">Afegir participants</string>
     <string name="menu_exit">Sortir del projecte</string>
+    <string name="menu_borrar">Borrar el projecte</string>
 
     <!--STRINGS GLOBALS-->
     <string name="tornar">Tornar</string>
     <string name="id_key">idkey</string>
+    <string name="empty">Aquest camp no pot estar buit.</string>
 
+    <!--STRINGS ALERT DIALOG-->
+    <string name="adTitle">Borrar Projecte</string>
+    <string name="adMessage">Estas segur que vols eliminar el projecte de forma permanent?</string>
+    <string name="yes">Si</string>
+    <string name="no">No</string>
     <!--STRINGS DE LOGIN-->
     <string name="Login">Inciar Sessió</string>
     <string name="Mail">Correu Electrònic</string>

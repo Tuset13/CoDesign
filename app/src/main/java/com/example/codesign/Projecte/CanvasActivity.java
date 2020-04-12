@@ -2,6 +2,7 @@ package com.example.codesign.Projecte;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +17,7 @@ public class CanvasActivity extends AppCompatActivity implements View.OnClickLis
 
     private Button midaUp, midaDown, changeColor, eraser, back;
     private MyCanvas myCanvas;
+    private Bitmap imatgeBackground;
 
     private String buttonEraserText, buttonColorText;
 
@@ -39,11 +41,14 @@ public class CanvasActivity extends AppCompatActivity implements View.OnClickLis
         changeColor.setOnClickListener(this);
         eraser.setOnClickListener(this);
         back.setOnClickListener(this);
+
     }
 
     @Override
     public void onClick(View view) {
         switch(view.getId()){
+
+            //BOTO DE LA GOMA
             case R.id.eraser:
                 String buttonText = (String) eraser.getText();
                 if(buttonText == buttonEraserText){
@@ -58,6 +63,8 @@ public class CanvasActivity extends AppCompatActivity implements View.OnClickLis
                     eraser.setText(R.string.eraser);
                 }
                 break;
+
+            //BOTONS PER CONTROLAR MIDA
             case R.id.sizeUp:
                 float newBigBrushSize = myCanvas.getBrushSize();
                 newBigBrushSize += 2;
@@ -70,6 +77,8 @@ public class CanvasActivity extends AppCompatActivity implements View.OnClickLis
                 myCanvas.setBrushSize(newLowBrushSize);
                 myCanvas.setLastBrushSize(newLowBrushSize);
                 break;
+
+             //BOTO PER CANVIAR COLOR
             case R.id.color:
                 if(eraser.getText() == buttonEraserText){
                     if(changeColor.getText() == buttonColorText){
@@ -81,17 +90,33 @@ public class CanvasActivity extends AppCompatActivity implements View.OnClickLis
                     }
                 }
                 break;
+
+            //BOTO PER TORNAR AL PROJECTE I RETORNAR LA IMATGE RESULTANT
             case R.id.tornarProject:
-                myCanvas.setDrawingCacheEnabled(true);
-                Bitmap result = myCanvas.getDrawingCache();
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                result.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                byte[] byteArray = stream.toByteArray();
-                Intent intent=new Intent();
-                intent.putExtra("result",byteArray);
-                setResult(RESULT_OK, intent);
+                retornarImatge();
                 finish();
                 break;
+        }
+    }
+
+    public void retornarImatge(){
+        myCanvas.setDrawingCacheEnabled(true);
+        Bitmap result = myCanvas.getDrawingCache();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        result.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+        Intent intent=new Intent();
+        intent.putExtra("result",byteArray);
+        setResult(RESULT_OK, intent);
+    }
+
+    //TODO
+    //EN LA SEGÜENT ENTREGA
+    public void comprovarImatge(){
+        byte[] byteArray = getIntent().getByteArrayExtra("result");
+        if(byteArray != null){
+            imatgeBackground = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+            myCanvas.setImage(imatgeBackground);
         }
     }
 }
