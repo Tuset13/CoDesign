@@ -1,28 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:text="@string/titol_nou_proj"
-        android:gravity="center"
-        android:textSize="34sp"
-        android:layout_marginBottom="35dp"
-        android:textColor="@color/secondary"
-        android:fontFamily="@font/worksans_light"
-        android:background="@color/colorPrimary"
-        />
+    android:layout_height="match_parent"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="555dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorPrimary"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:text="@string/titol_nou_proj"
+            android:gravity="center"
+            android:textSize="34sp"
+            android:textColor="@color/secondary"
+            android:fontFamily="@font/worksans_light"
+            android:background="@color/colorPrimary"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:gravity="center"
-        android:orientation="vertical"
+        android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginLeft="10dp">
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
@@ -89,13 +96,14 @@
             android:paddingRight="40dp"
             android:textColor="@color/white"
             />
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:background="@color/colorPrimary"
-        android:layout_gravity="end"
         android:orientation="vertical">
 
         <Button
@@ -110,4 +118,4 @@
             android:textColor="@color/white"/>
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>
