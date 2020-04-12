@@ -38,7 +38,7 @@ android:orientation="vertical">
         android:text="@string/nou_projecte"
         android:layout_margin="10dp"
         android:padding="10dp"
-        android:elevation="5dp"
+        android:elevation="10dp"
         android:background="@drawable/rounded_button"
         android:drawableStart="@drawable/ic_new_project" />
 
