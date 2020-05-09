@@ -55,6 +55,7 @@
     <string name="menu_part">Afegir participants</string>
     <string name="menu_exit">Sortir del projecte</string>
     <string name="menu_borrar">Borrar el projecte</string>
+    <string name="menu_popietats">Propietats de projecte</string>
 
     <!--STRINGS GLOBALS-->
     <string name="tornar">Tornar</string>
