@@ -38,7 +38,6 @@ public class NewProjectActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onClick(View view) {
 
-
         EditText editNom = findViewById(R.id.editText1);
         EditText editParticipants = findViewById(R.id.editText2);
         CheckBox admin = findViewById(R.id.admin);

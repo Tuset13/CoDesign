@@ -72,5 +72,8 @@
     <string name="Mail">Correu Electrònic</string>
     <string name="Pass">Contraseña</string>
     <string name="Forgot">Has oblidat la contraseña?</string>
+    <string name="noCon">No network operating!</string>
+    <string name="wifiCon">Wifi Connected!</string>
+    <string name="mobCon">Mobile Connected!</string>
 
 </resources>
