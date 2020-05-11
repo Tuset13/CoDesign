@@ -57,6 +57,16 @@
     <string name="menu_borrar">Borrar el projecte</string>
     <string name="menu_popietats">Propietats de projecte</string>
 
+    <!--STRINGS DE PANTALLA CONFIGURACIONS-->
+    <string name="settings">Configuracions</string>
+    <string name="settings_save">Guardar</string>
+    <string name="settings_color">Color del pinzell:</string>
+    <string name="color_black">Negre</string>
+    <string name="color_red">Vermell</string>
+    <string name="color_blue">Blau</string>
+    <string name="color_green">Verd</string>
+
+
     <!--STRINGS GLOBALS-->
     <string name="tornar">Tornar</string>
     <string name="id_key">idkey</string>
@@ -67,6 +77,7 @@
     <string name="adMessage">Estas segur que vols eliminar el projecte de forma permanent?</string>
     <string name="yes">Si</string>
     <string name="no">No</string>
+
     <!--STRINGS DE LOGIN-->
     <string name="Login">Inciar Sessió</string>
     <string name="Mail">Correu Electrònic</string>

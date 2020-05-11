@@ -49,6 +49,11 @@ public class MainActivity extends AppCompatActivity implements ProjectListFragme
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
 
+            case R.id.settings:
+                Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivity(intent);
+                return true;
+
             case R.id.exit:
                 finish();
                 return true;

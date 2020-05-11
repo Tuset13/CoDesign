@@ -26,6 +26,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity"></activity>
+        <activity android:name=".SettingsActivity"></activity>
         <activity android:name=".NewProjectActivity"></activity>
         <activity android:name=".InvitationsActivity"></activity>
         <activity android:name=".Projecte.ProjectActivity" android:screenOrientation="portrait"></activity>
