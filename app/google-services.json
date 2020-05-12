@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "349225683202",
+    "firebase_url": "https://codesign-d662e.firebaseio.com",
+    "project_id": "codesign-d662e",
+    "storage_bucket": "codesign-d662e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:349225683202:android:770ee5bbc149b3d5ff9a1b",
+        "android_client_info": {
+          "package_name": "com.example.codesign"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "349225683202-41v4i8qe71nmbkjhg0bkrt9ngio581sn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpaKZZ1945MutXxCExmPrCqsXnSOsmbIk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "349225683202-41v4i8qe71nmbkjhg0bkrt9ngio581sn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
