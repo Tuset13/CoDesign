@@ -25,6 +25,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.codesign.DDBB.ProjectesSQLiteHelper;
 import com.example.codesign.ParticipantsActivity;
 import com.example.codesign.R;
+import com.example.codesign.SettingsActivity;
 
 import java.io.ByteArrayOutputStream;
 
@@ -84,7 +85,10 @@ public class ProjectActivity extends AppCompatActivity implements View.OnClickLi
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
 
-            case R.id.propietats:
+            case R.id.settings:
+                Intent intent = new Intent(ProjectActivity.this, SettingsActivity.class);
+                startActivity(intent);
+                return true;
                 
             case R.id.exit:
                 finish();

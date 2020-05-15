@@ -1,6 +1,7 @@
 package com.example.codesign.Projecte;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -18,8 +19,9 @@ public class CanvasActivity extends AppCompatActivity implements View.OnClickLis
     private Button midaUp, midaDown, changeColor, eraser, back;
     private MyCanvas myCanvas;
     private Bitmap imatgeBackground;
+    SharedPreferences mypreferences;
 
-    private String buttonEraserText, buttonColorText;
+    private String buttonEraserText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +36,8 @@ public class CanvasActivity extends AppCompatActivity implements View.OnClickLis
         back = findViewById(R.id.tornarProject);
 
         buttonEraserText = (String) eraser.getText();
-        buttonColorText = (String) changeColor.getText();
+        mypreferences = getSharedPreferences("settings",MODE_PRIVATE);
+        changeColor.setText(mypreferences.getString("color","Custom"));
 
         midaUp.setOnClickListener(this);
         midaDown.setOnClickListener(this);
@@ -81,17 +84,17 @@ public class CanvasActivity extends AppCompatActivity implements View.OnClickLis
              // BOTO PER CANVIAR COLOR
             case R.id.color:
                 if(eraser.getText() == buttonEraserText){
-                    if(changeColor.getText() == buttonColorText){
-                        myCanvas.setColor("#FF0000");
-                        changeColor.setText(R.string.changeToBlack);
-                    }else{
+                    if(changeColor.getText() == getString(R.string.color_black)){
                         myCanvas.setColor("#000000");
-                        changeColor.setText(R.string.changeToRed);
+                        changeColor.setText(mypreferences.getString("color","Custom"));
+                    }else{
+                        myCanvas.setColor(mypreferences.getString("color_code","#000000"));
+                        changeColor.setText(R.string.color_black);
                     }
                 }
                 break;
 
-            // BOTO PER TORNAR AL PROJECTE I RETORNAR LA IMATGE RESULTANT
+            //BOTO PER TORNAR AL PROJECTE I RETORNAR LA IMATGE RESULTANT
             case R.id.tornarProject:
                 retornarImatge();
                 finish();

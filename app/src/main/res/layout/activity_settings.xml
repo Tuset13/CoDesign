@@ -46,13 +46,8 @@ android:layout_height="match_parent"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:checkedButton="@+id/Black">
+            android:checkedButton="@+id/Red">
 
-            <RadioButton
-                android:id="@+id/Black"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/color_black"/>
             <RadioButton
                 android:id="@+id/Red"
                 android:layout_width="wrap_content"

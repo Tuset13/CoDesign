@@ -27,8 +27,6 @@
     <string name="afegir_nota">Afegir Nota</string>
     <string name="sizeUp">+ Mida</string>
     <string name="sizeDown">- Mida</string>
-    <string name="changeToRed">Red</string>
-    <string name="changeToBlack">Black</string>
     <string name="undo">Desfer Accio</string>
     <string name="eraser">Goma</string>
     <string name="brush">Pinzell</string>
@@ -60,7 +58,7 @@
     <!--STRINGS DE PANTALLA CONFIGURACIONS-->
     <string name="settings">Configuracions</string>
     <string name="settings_save">Guardar</string>
-    <string name="settings_color">Color del pinzell:</string>
+    <string name="settings_color">Color personalitzat del pinzell:</string>
     <string name="color_black">Negre</string>
     <string name="color_red">Vermell</string>
     <string name="color_blue">Blau</string>

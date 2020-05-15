@@ -15,7 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class SettingsActivity extends AppCompatActivity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
 
-    Integer color;
+    String color_code, color;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +36,10 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
         SharedPreferences.Editor editor =  mypreferences.edit();
 
-        editor.putInt("color", color);
+        editor.putString("color_code", color_code);
+        editor.putString("color", color);
+        editor.apply();
         finish();
-
     }
 
     @Override
@@ -46,17 +47,21 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
         switch (checkedId)
         {
-            case R.id.Black:
-                color = (R.color.black);
-
             case R.id.Red:
-                color = (R.color.red);
+                color_code = "#FF0000";
+                color = getString(R.string.color_red);
+                //color = "Red";
+                break;
 
             case R.id.Green:
-                color = (R.color.green);
+                color_code = "#008000";
+                color = getString(R.string.color_green);
+                break;
 
             case R.id.Blue:
-                color = (R.color.blue);
+                color_code = "#0000FF";
+                color = getString(R.string.color_blue);
+                break;
         }
     }
 }
