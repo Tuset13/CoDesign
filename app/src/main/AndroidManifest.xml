@@ -32,6 +32,8 @@
         <activity android:name=".Projecte.CanvasActivity" android:screenOrientation="portrait"></activity>
         <activity android:name=".ParticipantsActivity"></activity>
         <activity android:name=".Projecte.NewNoteActivity" android:screenOrientation="portrait"></activity>
+        <activity android:name=".MeetingsActivity" android:screenOrientation="portrait"></activity>
+
     </application>
 
 </manifest>

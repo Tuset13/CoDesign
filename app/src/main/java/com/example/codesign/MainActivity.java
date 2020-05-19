@@ -183,4 +183,16 @@ public class MainActivity extends AppCompatActivity implements ProjectListFragme
             }
         }
     }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(cm != null)
+        {
+            activeNetwork = cm.getActiveNetworkInfo();
+
+            new MainActivity.CheckConnectivityTask().execute();
+        }
+    }
 }

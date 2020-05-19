@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:text="@string/Meetings"
+        android:textSize="34sp"
+        android:textColor="@color/secondary"
+        android:fontFamily="@font/worksans_light"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        />
+
+    <fragment
+        class="com.example.codesign.ProjectListFragment"
+        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:id="@+id/FrgMap"
+        tools:layout="@layout/fragment_project_list"
+        android:layout_weight="1" />
+
+    <fragment
+        class="com.example.codesign.ProjectListFragment"
+        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+
+        android:id="@+id/FrgMeeting"
+        tools:layout="@layout/fragment_meeting"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/colorPrimary">
+
+        <Button
+            android:id="@+id/editAndSave"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/EditMeeting"
+            android:layout_margin="10dp"
+            android:padding="10dp"
+            android:elevation="10dp"
+            android:background="@drawable/rounded_button"/>
+
+        <Button
+            android:id="@+id/TornarReunio"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/tornar"
+            android:background="@drawable/rounded_button"
+            android:padding="10dp"
+            android:layout_margin="10dp"
+            android:elevation="5dp"
+            android:drawableStart="@drawable/ic_tornar"/>
+    </LinearLayout>
+
+</LinearLayout>

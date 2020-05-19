@@ -50,7 +50,6 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
             case R.id.Red:
                 color_code = "#FF0000";
                 color = getString(R.string.color_red);
-                //color = "Red";
                 break;
 
             case R.id.Green:

@@ -85,4 +85,16 @@
     <string name="wifiCon">Wifi Connected!</string>
     <string name="mobCon">Mobile Connected!</string>
 
+    <!--STRINGS DE PANTALLA REUNIONS-->
+    <string name="SaveMeeting">Guardar</string>
+    <string name="EditMeeting">Editar</string>
+    <string name="Meetings">Reunió</string>
+    <string name="Back">Tornar</string>
+    <string name="NameMeeting">Nom de la Reunió:</string>
+    <string name="TimeMeeting">Hora de la Reunió:</string>
+    <string name="DescMeeting">Descripció:</string>
+    <string name="NameExample">Exemple Titol</string>
+    <string name="TimeExample">15:00 01/01/0000</string>
+    <string name="DescExample">Description exemple</string>
+
 </resources>
