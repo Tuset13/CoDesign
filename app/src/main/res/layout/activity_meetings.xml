@@ -29,7 +29,6 @@
         android:layout_height="0dp"
         android:layout_width="match_parent"
         android:layout_margin="10dp"
-
         android:id="@+id/FrgMeeting"
         tools:layout="@layout/fragment_meeting"
         android:layout_weight="1" />

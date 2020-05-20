@@ -8,13 +8,12 @@ import android.widget.TextView;
 
 
 import androidx.appcompat.app.AppCompatActivity;
-
+import com.example.codesign.Classes.Meeting;
 import java.sql.Timestamp;
 
 public class MeetingsActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button editAndSave;
-    Button back;
+    Button editAndSave, back;
     EditText nameEdit,timeEdit,descEdit;
     TextView nameText,timeText,descText;
     Timestamp time;
@@ -30,12 +29,13 @@ public class MeetingsActivity extends AppCompatActivity implements View.OnClickL
         editAndSave.setOnClickListener(this);
         back.setOnClickListener(this);
 
+        //SI EXISTEIXEN DADES PREVIES EXECUTA FUNCIO
+        getMeetingFromDataBase();
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-
             case R.id.editAndSave:
                 if(editAndSave.getText() == getString(R.string.EditMeeting)) {
                     editAndSave.setText(R.string.SaveMeeting);
@@ -91,6 +91,18 @@ public class MeetingsActivity extends AppCompatActivity implements View.OnClickL
 
     }
 
+    //FUNCIO PER GUARDAR A LA BASE DE DADES
     private void saveOnDataBase() {
+
+        //CREEM UNA REUNIO
+        Meeting meeting = new Meeting(nameEdit.getText().toString(), descEdit.getText().toString(), time);
+
+        //GUARDAR A LA BASE DE DADES
     }
+
+    //FUNCIO PER RECUPERAR DE LA BASE DE DADES
+    private void getMeetingFromDataBase() {
+        //HEM DE RECUPERAR LES DADES DE LA REUNIO
+    }
+    
 }
