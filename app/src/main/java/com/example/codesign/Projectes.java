@@ -2,18 +2,24 @@ package com.example.codesign;
 
 import com.example.codesign.Projecte.MyCanvas;
 
+import java.util.List;
+
 public class Projectes {
 
     private boolean administrator;
-    private MyCanvas canvas;
-    private String[] notes;
+    //private MyCanvas canvas;
+    private List<String> notes;
     private String projectName;
+    //private Reunions reunio;
 
-    public Projectes(boolean administrator, MyCanvas canvas, String[] notes, String projectName){
+    public Projectes(){}
+
+    public Projectes(boolean administrator, List<String> notes, String projectName){
         this.projectName = projectName;
         this.administrator = administrator;
-        this.canvas = canvas;
+        //this.canvas = canvas;
         this.notes = notes;
+        //this.reunio = reunio;
     }
 
     public String getProjectName() {
@@ -32,19 +38,27 @@ public class Projectes {
         this.administrator = administrator;
     }
 
-    public MyCanvas getCanvas() {
+    /*public MyCanvas getCanvas() {
         return canvas;
     }
 
     public void setCanvas(MyCanvas canvas) {
         this.canvas = canvas;
-    }
+    }*/
 
-    public String[] getNotes() {
+    public List<String> getNotes() {
         return notes;
     }
 
-    public void setNotes(String[] notes) {
+    public void setNotes(List<String> notes) {
         this.notes = notes;
     }
+
+    /*public Reunions getReunio() {
+        return reunio;
+    }
+
+    public void setReunio(Reunions reunio) {
+        this.reunio = reunio;
+    }*/
 }
