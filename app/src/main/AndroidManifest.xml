@@ -12,7 +12,7 @@
 
     <meta-data
         android:name="com.google.android.geo.API_KEY"
-        android:value="@strings/google_maps_key" />
+        android:value="@strings/google_maps_key"/>
 
     <application
         android:allowBackup="true"
