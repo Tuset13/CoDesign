@@ -23,14 +23,117 @@
         class="com.google.android.gms.maps.SupportMapFragment"
         android:layout_weight="1" />
 
-    <fragment
-        class="com.example.codesign.ProjectListFragment"
-        android:layout_height="0dp"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_margin="10dp"
-        android:id="@+id/FrgMeeting"
-        tools:layout="@layout/fragment_meeting"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_margin="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/NameMeeting"
+                android:textStyle="bold"
+                android:textSize="18sp">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/nameText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                android:text="@string/NameExample"
+                android:layout_marginStart="8dp"
+                android:textSize="16sp">
+
+            </TextView>
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/nameEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:textSize="16sp"
+            android:background="@drawable/input">
+        </EditText>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/TimeMeeting"
+                android:textStyle="bold"
+                android:textSize="18sp">
+            </TextView>
+
+            <TextView
+                android:id="@+id/timeText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                android:text="@string/TimeExample"
+                android:layout_marginStart="8dp"
+                android:textSize="16sp">
+            </TextView>
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/timeEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:textSize="16sp"
+            android:background="@drawable/input"
+            android:hint="@string/TimeExample">
+        </EditText>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/DescMeeting"
+                android:textStyle="bold"
+                android:textSize="18sp">
+            </TextView>
+
+            <TextView
+                android:id="@+id/descText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                android:text="@string/DescExample"
+                android:layout_marginStart="8dp"
+                android:textSize="16sp">
+            </TextView>
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/descEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            android:textSize="16sp"
+            android:background="@drawable/input">
+        </EditText>
+
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

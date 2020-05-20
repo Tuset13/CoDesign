@@ -5,17 +5,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
-
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.codesign.Classes.Meeting;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.sql.Timestamp;
 
-public class MeetingsActivity extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback {
+public class MeetingsActivity extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback, GoogleMap.OnMapClickListener {
 
     Button editAndSave, back;
     EditText nameEdit,timeEdit,descEdit;
@@ -113,6 +114,24 @@ public class MeetingsActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+
+        mMap.setOnMapClickListener(this);
         //TODO
+    }
+
+    @Override
+    public void onMapClick(LatLng latLng) {
+        // Creating a marker
+        MarkerOptions markerOptions = new MarkerOptions();
+
+        markerOptions.position(latLng);
+
+        markerOptions.title(latLng.latitude + " : " + latLng.longitude);
+
+        mMap.clear();
+
+        mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+
+        mMap.addMarker(markerOptions);
     }
 }
