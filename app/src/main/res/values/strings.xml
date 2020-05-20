@@ -96,9 +96,4 @@
     <string name="NameExample">Exemple Titol</string>
     <string name="TimeExample">YYYY/MM/DD hh:mm:ss</string>
     <string name="DescExample">Description exemple</string>
-
-
-    <!--KEY DE GOOGLE MAPS-->
-    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyD3cTvMZShpnCZi74LkU97le-JBjD8T3m0</string>
-
 </resources>
