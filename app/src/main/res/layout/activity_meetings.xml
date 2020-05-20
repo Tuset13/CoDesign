@@ -17,11 +17,11 @@
         />
 
     <fragment
-        class="com.example.codesign.ProjectListFragment"
+        android:id="@+id/FrgMap"
         android:layout_height="0dp"
         android:layout_width="match_parent"
-        android:id="@+id/FrgMap"
         tools:layout="@layout/fragment_project_list"
+        class="com.google.android.gms.maps.SupportMapFragment"
         android:layout_weight="1" />
 
     <fragment

@@ -9,14 +9,19 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.codesign.Classes.Meeting;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+
 import java.sql.Timestamp;
 
-public class MeetingsActivity extends AppCompatActivity implements View.OnClickListener {
+public class MeetingsActivity extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback {
 
     Button editAndSave, back;
     EditText nameEdit,timeEdit,descEdit;
     TextView nameText,timeText,descText;
     Timestamp time;
+    private GoogleMap mMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +34,11 @@ public class MeetingsActivity extends AppCompatActivity implements View.OnClickL
         editAndSave.setOnClickListener(this);
         back.setOnClickListener(this);
 
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.FrgMap);
+        mapFragment.getMapAsync( this);
+
         //SI EXISTEIXEN DADES PREVIES EXECUTA FUNCIO
-        getMeetingFromDataBase();
+        //getMeetingFromDataBase();
     }
 
     @Override
@@ -43,9 +51,9 @@ public class MeetingsActivity extends AppCompatActivity implements View.OnClickL
                 } else {
                     editAndSave.setText(R.string.EditMeeting);
                     save();
+                    saveOnDataBase();
                 }
                 break;
-
             case R.id.TornarReunio:
                 //TORNAR PANTALLA ANTERIOR
                 finish();
@@ -53,6 +61,7 @@ public class MeetingsActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
+    //FEM CANVI ALS TEXTS I GUARDEM
     private void save() {
         //Get the edit texts
         nameEdit = findViewById(R.id.nameEdit);
@@ -73,12 +82,9 @@ public class MeetingsActivity extends AppCompatActivity implements View.OnClickL
         nameEdit.setVisibility(View.INVISIBLE);
         timeEdit.setVisibility(View.INVISIBLE);
         descEdit.setVisibility(View.INVISIBLE);
-
-        //ES GUARDEN LES DADES DE LA REUNIO A LA BASE DE DADES
-        saveOnDataBase();
-
     }
 
+    //ACTIVEM EL MODE EDICIO
     private void edit() {
         nameEdit = findViewById(R.id.nameEdit);
         timeEdit = findViewById(R.id.timeEdit);
@@ -88,7 +94,6 @@ public class MeetingsActivity extends AppCompatActivity implements View.OnClickL
         nameEdit.setVisibility(View.VISIBLE);
         timeEdit.setVisibility(View.VISIBLE);
         descEdit.setVisibility(View.VISIBLE);
-
     }
 
     //FUNCIO PER GUARDAR A LA BASE DE DADES
@@ -96,7 +101,6 @@ public class MeetingsActivity extends AppCompatActivity implements View.OnClickL
 
         //CREEM UNA REUNIO
         Meeting meeting = new Meeting(nameEdit.getText().toString(), descEdit.getText().toString(), time);
-
         //GUARDAR A LA BASE DE DADES
     }
 
@@ -104,5 +108,11 @@ public class MeetingsActivity extends AppCompatActivity implements View.OnClickL
     private void getMeetingFromDataBase() {
         //HEM DE RECUPERAR LES DADES DE LA REUNIO
     }
-    
+
+    //FUNCIONS DEL MAPA
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+        //TODO
+    }
 }
