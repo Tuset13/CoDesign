@@ -66,11 +66,13 @@ public class ProjectActivity extends AppCompatActivity implements View.OnClickLi
 
         ImageButton eButton = findViewById(R.id.edicio_pissarra);
         ImageButton anButton = findViewById(R.id.afegir_nota);
+        ImageButton mButton = findViewById(R.id.anar_reunio);
         //imageCanvas = findViewById(R.id.imageCanvas);
         background = findViewById(R.id.backgroundLayout);
 
         eButton.setOnClickListener(this);
         anButton.setOnClickListener(this);
+        mButton.setOnClickListener(this);
 
         instanciesHardcodeGridiNotes();
     }
@@ -143,7 +145,7 @@ public class ProjectActivity extends AppCompatActivity implements View.OnClickLi
 
             case R.id.anar_reunio:
                 Intent meetIntent = new Intent(ProjectActivity.this, MeetingsActivity.class);
-                startActivityForResult(meetIntent, TEXT_REQUEST);
+                startActivity(meetIntent);
                 break;
         }
     }
