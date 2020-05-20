@@ -9,12 +9,15 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.sql.Timestamp;
+
 public class MeetingsActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button editAndSave;
     Button back;
     EditText nameEdit,timeEdit,descEdit;
     TextView nameText,timeText,descText;
+    Timestamp time;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +67,8 @@ public class MeetingsActivity extends AppCompatActivity implements View.OnClickL
         nameText.setText(nameEdit.getText());
         timeText.setText(timeEdit.getText());
         descText.setText(descEdit.getText());
+
+        time = Timestamp.valueOf(timeEdit.getText().toString());
 
         nameEdit.setVisibility(View.INVISIBLE);
         timeEdit.setVisibility(View.INVISIBLE);

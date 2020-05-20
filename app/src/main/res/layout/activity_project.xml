@@ -159,10 +159,22 @@
             android:padding="20dp"/>
 
         <ImageButton
-            android:id="@+id/afegir_nota"
+        android:id="@+id/afegir_nota"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:src="@drawable/ic_sticky_note"
+        android:background="@drawable/rounded_button"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="5dp"
+        android:padding="20dp"/>
+
+        <ImageButton
+            android:id="@+id/anar_reunio"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:src="@drawable/ic_sticky_note"
+            android:src="@drawable/ic_meet"
             android:background="@drawable/rounded_button"
             android:layout_marginTop="5dp"
             android:layout_marginLeft="20dp"
