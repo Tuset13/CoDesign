@@ -4,14 +4,14 @@ import com.example.codesign.Projecte.MyCanvas;
 
 public class Projectes {
 
-    private String projectName;
     private boolean administrator;
     private MyCanvas canvas;
     private String[] notes;
+    private String projectName;
 
-    public Projectes(String projectName, boolean administrator, MyCanvas canvas, String[] notes){
+    public Projectes(boolean administrator, MyCanvas canvas, String[] notes, String projectName){
         this.projectName = projectName;
-        this. administrator = administrator;
+        this.administrator = administrator;
         this.canvas = canvas;
         this.notes = notes;
     }
