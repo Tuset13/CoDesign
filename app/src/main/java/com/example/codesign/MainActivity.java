@@ -64,15 +64,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //Autenticació a través de FirebaseUI
         firebaseUIAuth();
 
+        projectesList = new ArrayList<>();
+        projectesListAdapter = new ProjectesListAdapter(getApplicationContext(), projectesList);
+
         mMainList = findViewById(R.id.main_list);
         mMainList.setHasFixedSize(true);
         mMainList.setLayoutManager(new LinearLayoutManager(this));
         mMainList.setAdapter(projectesListAdapter);
 
         mFirestore = FirebaseFirestore.getInstance();
-
-        projectesList = new ArrayList<>();
-        projectesListAdapter = new ProjectesListAdapter(projectesList);
 
         mFirestore.collection("projectes").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
@@ -84,7 +84,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 for(DocumentChange doc : queryDocumentSnapshots.getDocumentChanges()){
 
                     if(doc.getType() == DocumentChange.Type.ADDED){
-                        Projectes projectes = doc.getDocument().toObject(Projectes.class);
+
+                        String project_id = doc.getDocument().getId();
+
+                        Projectes projectes = doc.getDocument().toObject(Projectes.class).withId(project_id);
                         projectesList.add(projectes);
 
                         projectesListAdapter.notifyDataSetChanged();

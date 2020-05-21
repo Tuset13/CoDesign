@@ -4,20 +4,20 @@ import com.example.codesign.Projecte.MyCanvas;
 
 import java.util.List;
 
-public class Projectes {
+public class Projectes extends ProjecteId{
 
     private boolean administrator;
-    //private MyCanvas canvas;
+    private MyCanvas canvas;
     private List<String> notes;
     private String projectName;
     //private Reunions reunio;
 
     public Projectes(){}
 
-    public Projectes(boolean administrator, List<String> notes, String projectName){
+    public Projectes(boolean administrator, MyCanvas canvas, List<String> notes, String projectName){
         this.projectName = projectName;
         this.administrator = administrator;
-        //this.canvas = canvas;
+        this.canvas = canvas;
         this.notes = notes;
         //this.reunio = reunio;
     }
@@ -38,13 +38,13 @@ public class Projectes {
         this.administrator = administrator;
     }
 
-    /*public MyCanvas getCanvas() {
+    public MyCanvas getCanvas() {
         return canvas;
     }
 
     public void setCanvas(MyCanvas canvas) {
         this.canvas = canvas;
-    }*/
+    }
 
     public List<String> getNotes() {
         return notes;
