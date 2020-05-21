@@ -1,5 +1,7 @@
 package com.example.codesign.Classes;
 
+import com.google.firebase.firestore.GeoPoint;
+
 import java.sql.Timestamp;
 
 public class Meeting {
@@ -7,11 +9,13 @@ public class Meeting {
     private String title;
     private String description;
     private Timestamp time;
+    private GeoPoint location;
 
-    public Meeting(String title, String description, Timestamp time){
+    public Meeting(String title, String description, Timestamp time, GeoPoint location){
         this.title = title;
         this.description = description;
         this.time = time;
+        this.location = location;
     }
 
     public String getTitle() {
@@ -26,6 +30,10 @@ public class Meeting {
         return time;
     }
 
+    public GeoPoint getLocation() {
+        return location;
+    }
+
     public void setTitle(String title) {
         this.title = title;
     }
@@ -36,5 +44,9 @@ public class Meeting {
 
     public void setTime(Timestamp time) {
         this.time = time;
+    }
+
+    public void setLocation(GeoPoint location) {
+        this.location = location;
     }
 }

@@ -13,6 +13,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.firestore.GeoPoint;
 
 import java.sql.Timestamp;
 
@@ -23,6 +24,7 @@ public class MeetingsActivity extends AppCompatActivity implements View.OnClickL
     TextView nameText,timeText,descText;
     Timestamp time;
     private GoogleMap mMap;
+    private GeoPoint location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,9 +81,9 @@ public class MeetingsActivity extends AppCompatActivity implements View.OnClickL
         nameText.setText(nameEdit.getText());
         timeText.setText(timeEdit.getText());
         descText.setText(descEdit.getText());
-
-        time = Timestamp.valueOf(timeEdit.getText().toString());
-
+        if(!timeEdit.getText().toString().equals("")) {
+            time = Timestamp.valueOf(timeEdit.getText().toString());
+        }
         nameEdit.setVisibility(View.INVISIBLE);
         timeEdit.setVisibility(View.INVISIBLE);
         descEdit.setVisibility(View.INVISIBLE);
@@ -103,7 +105,7 @@ public class MeetingsActivity extends AppCompatActivity implements View.OnClickL
     private void saveOnDataBase() {
 
         //CREEM UNA REUNIO
-        Meeting meeting = new Meeting(nameEdit.getText().toString(), descEdit.getText().toString(), time);
+        Meeting meeting = new Meeting(nameEdit.getText().toString(), descEdit.getText().toString(), time, location);
         //GUARDAR A LA BASE DE DADES
     }
 
@@ -129,6 +131,8 @@ public class MeetingsActivity extends AppCompatActivity implements View.OnClickL
         markerOptions.position(latLng);
 
         markerOptions.title(latLng.latitude + " : " + latLng.longitude);
+
+        location = new GeoPoint(latLng.latitude, latLng.longitude);
 
         mMap.clear();
 
