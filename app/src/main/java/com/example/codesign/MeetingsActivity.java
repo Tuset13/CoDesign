@@ -36,7 +36,9 @@ public class MeetingsActivity extends AppCompatActivity implements View.OnClickL
         back.setOnClickListener(this);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.FrgMap);
-        mapFragment.getMapAsync( this);
+        if (mapFragment != null) {
+            mapFragment.getMapAsync( this);
+        }
 
         //SI EXISTEIXEN DADES PREVIES EXECUTA FUNCIO
         //getMeetingFromDataBase();
