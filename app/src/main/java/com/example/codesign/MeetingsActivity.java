@@ -5,16 +5,24 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
-
 import androidx.appcompat.app.AppCompatActivity;
+import com.example.codesign.Classes.Meeting;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MeetingsActivity extends AppCompatActivity implements View.OnClickListener {
+import java.sql.Timestamp;
 
-    Button editAndSave;
-    Button back;
+public class MeetingsActivity extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback, GoogleMap.OnMapClickListener {
+
+    Button editAndSave, back;
     EditText nameEdit,timeEdit,descEdit;
     TextView nameText,timeText,descText;
+    Timestamp time;
+    private GoogleMap mMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,12 +35,16 @@ public class MeetingsActivity extends AppCompatActivity implements View.OnClickL
         editAndSave.setOnClickListener(this);
         back.setOnClickListener(this);
 
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.FrgMap);
+        mapFragment.getMapAsync( this);
+
+        //SI EXISTEIXEN DADES PREVIES EXECUTA FUNCIO
+        //getMeetingFromDataBase();
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-
             case R.id.editAndSave:
                 if(editAndSave.getText() == getString(R.string.EditMeeting)) {
                     editAndSave.setText(R.string.SaveMeeting);
@@ -40,9 +52,9 @@ public class MeetingsActivity extends AppCompatActivity implements View.OnClickL
                 } else {
                     editAndSave.setText(R.string.EditMeeting);
                     save();
+                    saveOnDataBase();
                 }
                 break;
-
             case R.id.TornarReunio:
                 //TORNAR PANTALLA ANTERIOR
                 finish();
@@ -50,6 +62,7 @@ public class MeetingsActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
+    //FEM CANVI ALS TEXTS I GUARDEM
     private void save() {
         //Get the edit texts
         nameEdit = findViewById(R.id.nameEdit);
@@ -65,15 +78,14 @@ public class MeetingsActivity extends AppCompatActivity implements View.OnClickL
         timeText.setText(timeEdit.getText());
         descText.setText(descEdit.getText());
 
+        time = Timestamp.valueOf(timeEdit.getText().toString());
+
         nameEdit.setVisibility(View.INVISIBLE);
         timeEdit.setVisibility(View.INVISIBLE);
         descEdit.setVisibility(View.INVISIBLE);
-
-        //ES GUARDEN LES DADES DE LA REUNIO A LA BASE DE DADES
-        saveOnDataBase();
-
     }
 
+    //ACTIVEM EL MODE EDICIO
     private void edit() {
         nameEdit = findViewById(R.id.nameEdit);
         timeEdit = findViewById(R.id.timeEdit);
@@ -83,9 +95,43 @@ public class MeetingsActivity extends AppCompatActivity implements View.OnClickL
         nameEdit.setVisibility(View.VISIBLE);
         timeEdit.setVisibility(View.VISIBLE);
         descEdit.setVisibility(View.VISIBLE);
-
     }
 
+    //FUNCIO PER GUARDAR A LA BASE DE DADES
     private void saveOnDataBase() {
+
+        //CREEM UNA REUNIO
+        Meeting meeting = new Meeting(nameEdit.getText().toString(), descEdit.getText().toString(), time);
+        //GUARDAR A LA BASE DE DADES
+    }
+
+    //FUNCIO PER RECUPERAR DE LA BASE DE DADES
+    private void getMeetingFromDataBase() {
+        //HEM DE RECUPERAR LES DADES DE LA REUNIO
+    }
+
+    //FUNCIONS DEL MAPA
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+
+        mMap.setOnMapClickListener(this);
+        //TODO
+    }
+
+    @Override
+    public void onMapClick(LatLng latLng) {
+        // Creating a marker
+        MarkerOptions markerOptions = new MarkerOptions();
+
+        markerOptions.position(latLng);
+
+        markerOptions.title(latLng.latitude + " : " + latLng.longitude);
+
+        mMap.clear();
+
+        mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+
+        mMap.addMarker(markerOptions);
     }
 }

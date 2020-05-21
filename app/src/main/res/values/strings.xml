@@ -94,7 +94,6 @@
     <string name="TimeMeeting">Hora de la Reunió:</string>
     <string name="DescMeeting">Descripció:</string>
     <string name="NameExample">Exemple Titol</string>
-    <string name="TimeExample">15:00 01/01/0000</string>
+    <string name="TimeExample">YYYY/MM/DD hh:mm:ss</string>
     <string name="DescExample">Description exemple</string>
-
 </resources>

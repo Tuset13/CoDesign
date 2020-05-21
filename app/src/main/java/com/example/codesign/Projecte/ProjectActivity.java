@@ -23,6 +23,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.codesign.DDBB.ProjectesSQLiteHelper;
+import com.example.codesign.MeetingsActivity;
 import com.example.codesign.ParticipantsActivity;
 import com.example.codesign.R;
 import com.example.codesign.SettingsActivity;
@@ -65,11 +66,13 @@ public class ProjectActivity extends AppCompatActivity implements View.OnClickLi
 
         ImageButton eButton = findViewById(R.id.edicio_pissarra);
         ImageButton anButton = findViewById(R.id.afegir_nota);
+        ImageButton mButton = findViewById(R.id.anar_reunio);
         //imageCanvas = findViewById(R.id.imageCanvas);
         background = findViewById(R.id.backgroundLayout);
 
         eButton.setOnClickListener(this);
         anButton.setOnClickListener(this);
+        mButton.setOnClickListener(this);
 
         instanciesHardcodeGridiNotes();
     }
@@ -138,6 +141,11 @@ public class ProjectActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.afegir_nota:
                 Intent intent1 = new Intent(ProjectActivity.this, NewNoteActivity.class);
                 startActivityForResult(intent1, TEXT_REQUEST);
+                break;
+
+            case R.id.anar_reunio:
+                Intent meetIntent = new Intent(ProjectActivity.this, MeetingsActivity.class);
+                startActivity(meetIntent);
                 break;
         }
     }
