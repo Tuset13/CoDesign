@@ -6,14 +6,19 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.ListFragment;
 
-
 import android.view.View;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
 import com.example.codesign.DDBB.ProjectesSQLiteHelper;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 
 public class ProjectListFragment extends ListFragment {
@@ -72,11 +77,24 @@ public class ProjectListFragment extends ListFragment {
 
 
     public void getBBDDData(){
+        FirebaseFirestore firestordb = FirebaseFirestore.getInstance();
+
+        firestordb.collection("projectes").get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()){
+                            QuerySnapshot querySnapshot = task.getResult();
+
+                        }
+                    }
+                });
+
         ProjectesSQLiteHelper usdbh = new ProjectesSQLiteHelper(
                 getContext(), "Projectes",null, 1);
         SQLiteDatabase db = usdbh.getReadableDatabase();
 
-        String[] campos = new String[]{"_id", "projectName"};
+        final String[] campos = new String[]{"id", "projectName"};
         Cursor c = db.query(
                 "Projectes", campos, null, null, null,null,null);
 

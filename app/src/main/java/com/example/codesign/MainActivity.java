@@ -1,7 +1,10 @@
 package com.example.codesign;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 
 import android.app.Activity;
@@ -11,6 +14,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -25,18 +29,32 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements ProjectListFragment.ProjecteListener, View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final int RC_SIGN_IN = 5;
 
+    private static final String TAG = "FireLog";
     ConnectivityManager cm;
     NetworkInfo activeNetwork;
     Button npButton;
     Button iButton;
+
+    private RecyclerView mMainList;
+    private FirebaseFirestore mFirestore;
+    private List<Projectes> projectesList;
+    private ProjectesListAdapter projectesListAdapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +63,39 @@ public class MainActivity extends AppCompatActivity implements ProjectListFragme
 
         //Autenticació a través de FirebaseUI
         firebaseUIAuth();
+
+        projectesList = new ArrayList<>();
+        projectesListAdapter = new ProjectesListAdapter(getApplicationContext(), projectesList);
+
+        mMainList = findViewById(R.id.main_list);
+        mMainList.setHasFixedSize(true);
+        mMainList.setLayoutManager(new LinearLayoutManager(this));
+        mMainList.setAdapter(projectesListAdapter);
+
+        mFirestore = FirebaseFirestore.getInstance();
+
+        mFirestore.collection("projectes").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                if(e != null){
+                    Log.d(TAG, "Error : " + e.getMessage());
+                }
+
+                for(DocumentChange doc : queryDocumentSnapshots.getDocumentChanges()){
+
+                    if(doc.getType() == DocumentChange.Type.ADDED){
+
+                        String project_id = doc.getDocument().getId();
+
+                        Projectes projectes = doc.getDocument().toObject(Projectes.class).withId(project_id);
+                        projectesList.add(projectes);
+
+                        projectesListAdapter.notifyDataSetChanged();
+                    }
+
+                }
+            }
+        });
 
         npButton = findViewById(R.id.NouProjecte);
         iButton = findViewById(R.id.Invitacions);
@@ -60,12 +111,6 @@ public class MainActivity extends AppCompatActivity implements ProjectListFragme
 
             new MainActivity.CheckConnectivityTask().execute();
         }
-
-        //INSTANCIEM EL FRAGMENT AMB LA LLISTA DE PROJECTES
-        ProjectListFragment frgList = (ProjectListFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.FrgListOld);
-        //INCORPOREM UN LISTENER PER PODER CANVIAR D'ACTIVITY AL SELECCIONAR UN PROJECTE
-        frgList.setProjecteListener(this);
 
     }
 
@@ -119,7 +164,7 @@ public class MainActivity extends AppCompatActivity implements ProjectListFragme
         }
     }
 
-    @Override
+
     public void onProjecteSeleccionat(String id) {
         //REDIRECCIO A LA PANTALLA DEL PROJECTE SELECCIONAT I ENVIEM LA ID DEL PROJECTE
         Intent i = new Intent(this, ProjectActivity.class);
