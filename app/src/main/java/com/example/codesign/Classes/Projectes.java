@@ -10,7 +10,7 @@ public class Projectes extends ProjecteId {
     private MyCanvas canvas;
     private List<String> notes;
     private String projectName;
-    //private Reunions reunio;
+    //private Meeting reunio;
 
     public Projectes(){}
 
@@ -58,7 +58,7 @@ public class Projectes extends ProjecteId {
         return reunio;
     }
 
-    public void setReunio(Reunions reunio) {
+    public void setReunio(Meeting reunio) {
         this.reunio = reunio;
     }*/
 }
