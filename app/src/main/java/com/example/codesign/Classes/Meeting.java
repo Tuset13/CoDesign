@@ -25,4 +25,16 @@ public class Meeting {
     public Timestamp getTime() {
         return time;
     }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setTime(Timestamp time) {
+        this.time = time;
+    }
 }
