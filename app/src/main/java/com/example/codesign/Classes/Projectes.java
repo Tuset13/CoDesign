@@ -1,10 +1,10 @@
-package com.example.codesign;
+package com.example.codesign.Classes;
 
 import com.example.codesign.Projecte.MyCanvas;
 
 import java.util.List;
 
-public class Projectes extends ProjecteId{
+public class Projectes extends ProjecteId {
 
     private boolean administrator;
     private MyCanvas canvas;

@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.codesign.Classes.Projectes;
 import com.example.codesign.Projecte.ProjectActivity;
 
 import java.util.List;
@@ -27,7 +28,7 @@ public class ProjectesListAdapter extends RecyclerView.Adapter<ProjectesListAdap
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_project_data, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.project_data, parent, false);
         return new ViewHolder(view);
     }
 

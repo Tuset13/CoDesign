@@ -22,7 +22,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.codesign.Projecte.ProjectActivity;
+import com.example.codesign.Classes.Projectes;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -30,7 +30,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentChange;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -64,38 +63,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //Autenticació a través de FirebaseUI
         firebaseUIAuth();
 
-        projectesList = new ArrayList<>();
-        projectesListAdapter = new ProjectesListAdapter(getApplicationContext(), projectesList);
-
-        mMainList = findViewById(R.id.main_list);
-        mMainList.setHasFixedSize(true);
-        mMainList.setLayoutManager(new LinearLayoutManager(this));
-        mMainList.setAdapter(projectesListAdapter);
-
-        mFirestore = FirebaseFirestore.getInstance();
-
-        mFirestore.collection("projectes").addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
-                if(e != null){
-                    Log.d(TAG, "Error : " + e.getMessage());
-                }
-
-                for(DocumentChange doc : queryDocumentSnapshots.getDocumentChanges()){
-
-                    if(doc.getType() == DocumentChange.Type.ADDED){
-
-                        String project_id = doc.getDocument().getId();
-
-                        Projectes projectes = doc.getDocument().toObject(Projectes.class).withId(project_id);
-                        projectesList.add(projectes);
-
-                        projectesListAdapter.notifyDataSetChanged();
-                    }
-
-                }
-            }
-        });
+        //Llistar les dades al RecyclerView
+        firebaseListData();
 
         npButton = findViewById(R.id.NouProjecte);
         iButton = findViewById(R.id.Invitacions);
@@ -121,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return true;
     }
 
-    //UTILITZEM EL OPTIONSMENU PER A DONAR L'OPCIO DE TANCAR LA SESSIO
+    //UTILITZEM EL OPTIONS MENU PER A DONAR L'OPCIO DE TANCAR LA SESSIO
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -164,14 +133,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-
-    public void onProjecteSeleccionat(String id) {
-        //REDIRECCIO A LA PANTALLA DEL PROJECTE SELECCIONAT I ENVIEM LA ID DEL PROJECTE
-        Intent i = new Intent(this, ProjectActivity.class);
-        i.putExtra(getString(R.string.id_key), id);
-        startActivity(i);
-    }
-
     private class CheckConnectivityTask extends AsyncTask<Activity, Void, String> {
 
         @Override
@@ -209,6 +170,41 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .setAvailableProviders(providers)
                         .setLogo(R.drawable.logo)
                         .build(), RC_SIGN_IN);
+    }
+
+    private void firebaseListData(){
+        projectesList = new ArrayList<>();
+        projectesListAdapter = new ProjectesListAdapter(getApplicationContext(), projectesList);
+
+        mMainList = findViewById(R.id.main_list);
+        mMainList.setHasFixedSize(true);
+        mMainList.setLayoutManager(new LinearLayoutManager(this));
+        mMainList.setAdapter(projectesListAdapter);
+
+        mFirestore = FirebaseFirestore.getInstance();
+
+        mFirestore.collection("projectes").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                if(e != null){
+                    Log.d(TAG, "Error : " + e.getMessage());
+                }
+
+                for(DocumentChange doc : queryDocumentSnapshots.getDocumentChanges()){
+
+                    if(doc.getType() == DocumentChange.Type.ADDED){
+
+                        String project_id = doc.getDocument().getId();
+
+                        Projectes projectes = doc.getDocument().toObject(Projectes.class).withId(project_id);
+                        projectesList.add(projectes);
+
+                        projectesListAdapter.notifyDataSetChanged();
+                    }
+
+                }
+            }
+        });
     }
 
     @Override
