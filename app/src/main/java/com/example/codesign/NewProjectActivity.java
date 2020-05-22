@@ -75,18 +75,12 @@ public class NewProjectActivity extends AppCompatActivity implements View.OnClic
 
     private void insertinDB(FirebaseFirestore mFirestore, String projName, boolean admin){
 
-        //ContentValues newRegister = new ContentValues();
-
-
         //INTRODUIM ELS VALORS A LA DB
 
         Projectes newProject = new Projectes(admin, partList, null, projName, null);
 
         mFirestore.collection("projectes").add(newProject);
 
-        /*newRegister.put("projectName", projName);
-        newRegister.put("participants", participants);
-        newRegister.put("administrator", admin);*/
     }
 
     public boolean isEmpty(EditText editText){
