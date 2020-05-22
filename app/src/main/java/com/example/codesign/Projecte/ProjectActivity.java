@@ -36,7 +36,6 @@ public class ProjectActivity extends AppCompatActivity implements View.OnClickLi
 
     private String newNote;
     private Bitmap imatgeBackground;
-    private ImageView imageCanvas;
     private LinearLayout background;
 
     private String[] llistaNotes = new String[12];
@@ -66,7 +65,6 @@ public class ProjectActivity extends AppCompatActivity implements View.OnClickLi
         ImageButton eButton = findViewById(R.id.edicio_pissarra);
         ImageButton anButton = findViewById(R.id.afegir_nota);
         ImageButton mButton = findViewById(R.id.anar_reunio);
-        //imageCanvas = findViewById(R.id.imageCanvas);
         background = findViewById(R.id.backgroundLayout);
 
         eButton.setOnClickListener(this);
@@ -133,8 +131,8 @@ public class ProjectActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.edicio_pissarra:
-                // ENVIEM LA IMATGE ACTUAL PER A PROSEGUIR AMB LA SEVA EDICIO
-                enviarImatge();
+                // ENVIEM LA ID DEL PROJECTE ACTUAL PER A PROSEGUIR AMB LA SEVA EDICIO
+                enviarIdProjecte();
                 break;
 
             case R.id.afegir_nota:
@@ -160,7 +158,6 @@ public class ProjectActivity extends AppCompatActivity implements View.OnClickLi
                 imatgeBackground = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
                 Drawable backImage = new BitmapDrawable(getResources(), imatgeBackground);
                 background.setBackground(backImage);
-                //imageCanvas.setImageBitmap(imatgeBackground);
             }else if(requestCode == TEXT_REQUEST){
                 // TEXT DE LA NOVA NOTA
                 newNote = data.getStringExtra("result");
@@ -173,16 +170,11 @@ public class ProjectActivity extends AppCompatActivity implements View.OnClickLi
         }
     }
 
-    public void enviarImatge(){
-        //TODO
-        //DE MOMENT EN DESUS, PREPARAT PER A LA SEGÜENT ENTREGA
+    public void enviarIdProjecte(){
+        Intent dataIntent = getIntent();
+        String idProjecte = dataIntent.getStringExtra(getString(R.string.id_key));
         Intent intent = new Intent(ProjectActivity.this, CanvasActivity.class);
-        if(imatgeBackground != null){
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            imatgeBackground.compress(Bitmap.CompressFormat.PNG, 100, stream);
-            byte[] byteArray = stream.toByteArray();
-            intent.putExtra("result",byteArray);
-        }
+        intent.putExtra(getString(R.string.id_key), idProjecte);
         startActivityForResult(intent, IMAGE_REQUEST);
     }
 

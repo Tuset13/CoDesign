@@ -5,21 +5,35 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.codesign.Classes.Projectes;
 import com.example.codesign.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.ByteArrayOutputStream;
 
 public class CanvasActivity extends AppCompatActivity implements View.OnClickListener {
 
+    private static final String TAG = "FireLog";
     private Button midaUp, midaDown, changeColor, eraser, back;
-    private MyCanvas myCanvas;
+    private static MyCanvas myCanvas;
     private Bitmap imatgeBackground;
     SharedPreferences mypreferences;
+    private String idProjecte;
+
+    //private FirebaseFirestore mFirestore;
 
     private String buttonEraserText;
 
@@ -45,6 +59,11 @@ public class CanvasActivity extends AppCompatActivity implements View.OnClickLis
         eraser.setOnClickListener(this);
         back.setOnClickListener(this);
 
+        //mFirestore = FirebaseFirestore.getInstance();
+        Intent dataIntent = getIntent();
+        idProjecte = dataIntent.getStringExtra(getString(R.string.id_key));
+
+        //comprovarCanvasExistent();
     }
 
     @Override
@@ -97,6 +116,7 @@ public class CanvasActivity extends AppCompatActivity implements View.OnClickLis
             //BOTO PER TORNAR AL PROJECTE I RETORNAR LA IMATGE RESULTANT
             case R.id.tornarProject:
                 retornarImatge();
+                //guardarCanvas();
                 finish();
                 break;
         }
@@ -115,13 +135,46 @@ public class CanvasActivity extends AppCompatActivity implements View.OnClickLis
         setResult(RESULT_OK, intent);
     }
 
-    //TODO
-    //EN LA SEGÜENT ENTREGA
-    public void comprovarImatge(){
-        byte[] byteArray = getIntent().getByteArrayExtra("result");
-        if(byteArray != null){
-            imatgeBackground = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-            myCanvas.setImage(imatgeBackground);
-        }
+    /*private void guardarCanvas(){
+        DocumentReference docRef = mFirestore.collection("projectes").document(idProjecte);
+
+        docRef.update("canvas", myCanvas).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Log.d(TAG, "DocumentSnapshot successfully updated!");
+            }
+        })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error updating document", e);
+                    }
+                });
     }
+
+    private void comprovarCanvasExistent(){
+        DocumentReference docRef = mFirestore.collection("projectes").document(idProjecte);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    DocumentSnapshot document = task.getResult();
+                    if(document.exists()){
+                        Projectes projecte = document.toObject(Projectes.class);
+                        comprovarEquals(projecte);
+                    }else{
+                        Log.d(TAG, "No such document");
+                    }
+                } else{
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
+    }
+
+    private void comprovarEquals(Projectes projecte){
+        if(projecte.getCanvas() != null){
+            myCanvas = projecte.getCanvas();
+        }
+    }*/
 }
