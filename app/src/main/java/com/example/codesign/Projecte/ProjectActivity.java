@@ -96,11 +96,11 @@ public class ProjectActivity extends AppCompatActivity implements View.OnClickLi
                 finish();
                 return true;
 
-            case R.id.participants:
+            /*case R.id.participants:
                 Intent intent1 = new Intent(ProjectActivity.this, ParticipantsActivity.class);
                 startActivity(intent1);
                 return true;
-
+*/
             case R.id.borrar:
                 //INSTANCIEM UN ALERT DIALOG
                 final AlertDialog.Builder newDialog = new AlertDialog.Builder(this);
@@ -110,7 +110,7 @@ public class ProjectActivity extends AppCompatActivity implements View.OnClickLi
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         // EN CAS DE DIR QUE SI, BORREM EL PROJECTE
-                        borrarProjecte();
+                        //borrarProjecte();
                         finish();
                     }
                 });
@@ -179,7 +179,7 @@ public class ProjectActivity extends AppCompatActivity implements View.OnClickLi
         startActivityForResult(intent, IMAGE_REQUEST);
     }
 
-    public void borrarProjecte(){
+    /*public void borrarProjecte(){
         // INSTANCIEM LA DB
         ProjectesSQLiteHelper usdbh = new ProjectesSQLiteHelper(this, "Projectes",null, 1);
         SQLiteDatabase db = usdbh.getWritableDatabase();
@@ -190,7 +190,7 @@ public class ProjectActivity extends AppCompatActivity implements View.OnClickLi
             Toast.makeText(this, R.string.borrarToast, Toast.LENGTH_LONG).show();
         }
         db.close();
-    }
+    }*/
 
     public void instanciesHardcodeGridiNotes(){
         textGrid0 = findViewById(R.id.textGrid0);

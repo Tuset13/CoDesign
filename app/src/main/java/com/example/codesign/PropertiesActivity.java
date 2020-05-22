@@ -49,7 +49,7 @@ public class PropertiesActivity extends AppCompatActivity implements View.OnClic
         list = new ArrayList<>();
         participantsListAdapter = new ProjectesListAdapter(getApplicationContext(), list);
 
-        participantsList = findViewById(R.id.participants_list);
+        //participantsList = findViewById(R.id.participants_list);
         participantsList.setHasFixedSize(true);
         participantsList.setLayoutManager(new LinearLayoutManager(this));
         participantsList.setAdapter(participantsListAdapter);
