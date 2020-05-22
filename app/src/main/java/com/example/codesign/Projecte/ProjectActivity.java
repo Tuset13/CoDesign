@@ -2,7 +2,6 @@ package com.example.codesign.Projecte;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -15,16 +14,13 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.codesign.MeetingsActivity;
-import com.example.codesign.ParticipantsActivity;
 import com.example.codesign.PropertiesActivity;
 import com.example.codesign.R;
 import com.example.codesign.Settings.SettingsActivity;
-
-import java.io.ByteArrayOutputStream;
 
 public class ProjectActivity extends AppCompatActivity implements View.OnClickListener  {
 
@@ -100,12 +96,6 @@ public class ProjectActivity extends AppCompatActivity implements View.OnClickLi
                 
             case R.id.exit:
                 finish();
-                return true;
-
-            case R.id.participants:
-                Intent intent1 = new Intent(ProjectActivity.this, ParticipantsActivity.class);
-                intent1.putExtra(getString(R.string.id_key), idProjecte);
-                startActivity(intent1);
                 return true;
 
             case R.id.borrar:
