@@ -2,6 +2,7 @@ package com.example.codesign;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -208,7 +210,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
             activeNetwork = conn.getActiveNetworkInfo();
-            new CheckConnectivityTask().execute();
+            new CheckConnectivityTask(context).execute();
 
         }
 
@@ -217,33 +219,72 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             private final String WIFI = "Wi-Fi";
             private final String ANY = "Any";
 
+            private Context mContext;
+
+            public CheckConnectivityTask (Context context){
+                mContext = context;
+            }
+
             @Override
             protected String doInBackground(Activity... activity) {
 
                 if (WIFI.equals(ConType) && activeNetwork != null
-                        && activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) {
+                        && activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
 
-                    //MAKE SOMETHING
-                    return "WIFI";
+                    return getString(R.string.WifiLost);
 
+                } else if (!isConnectionOn()) {
 
-                } else if (ANY.equals(ConType) && activeNetwork != null) {
-
-                    //MAKE SOMETHING
-                    return "OTRA";
-
-                } else {
-
-                    //MAKE SOMETHING
-                    return "FAIL";
+                    return getString(R.string.ConnexionLost);
 
                 }
+                return null;
             }
 
             @Override
             protected void onPostExecute(String result) {
-                Toast toast = Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG);
-                toast.show();
+                if(result != null) {
+                    final AlertDialog.Builder connexionDialog = new AlertDialog.Builder(mContext);
+                    connexionDialog.setTitle(R.string.NetworkIssues);
+                    connexionDialog.setMessage(result);
+                    if(isConnectionOn()) {
+                        connexionDialog.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                SharedPreferences sharedPrefs = getSharedPreferences("settings", MODE_PRIVATE);
+                                SharedPreferences.Editor editor =  sharedPrefs.edit();
+                                editor.putString("ConType", "Any");
+                                editor.apply();
+                                finish();
+                            }
+                        });
+                        connexionDialog.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                finishAffinity();
+                            }
+                        });
+                    } else {
+                        connexionDialog.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                // Si marques OK, tanca l'aplicacio
+                                //finish();
+                                //finishAffinity();
+                                //System.exit(0);
+                            }
+                        });
+                    }
+                    connexionDialog.show();
+                }
+            }
+
+            private boolean isConnectionOn() {
+                boolean ret = false;
+                if(activeNetwork != null) {
+                    ret = true;
+                }
+                return ret;
             }
         }
     }

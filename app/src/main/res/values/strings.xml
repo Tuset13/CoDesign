@@ -78,6 +78,7 @@
     <string name="adMessage">Estas segur que vols eliminar el projecte de forma permanent?</string>
     <string name="yes">Si</string>
     <string name="no">No</string>
+    <string name="ok">OK</string>
 
     <!--STRINGS DE LOGIN-->
     <string name="Login">Inciar Sessió</string>
@@ -103,4 +104,11 @@
     <!--STRINGS DE PANTALLA PARTICIPANTS-->
     <string name="TitleProperties">Nom del Projecte</string>
     <string name="ListProperties">Llista de Participants</string>
+
+    <!--STRINGS DE CONNEXIONS-->
+    <string name="WifiLost">S\'ha perdut la conexió Wi-Fi, vols continuar gastant dades?</string>
+    <string name="ConnexionLost">S\'ha perdut la conexió a Internet, comprova la teva conexió i prova a accedir de nou.</string>
+    <string name="NetworkIssues">Problemes de Xarxa</string>
+
+
 </resources>
