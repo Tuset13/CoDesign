@@ -8,8 +8,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -23,6 +25,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.codesign.Classes.Projectes;
+import com.example.codesign.Settings.SettingsActivity;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -42,10 +45,9 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final int RC_SIGN_IN = 5;
-
+    private NetworkReceiver receiver = new NetworkReceiver();
     private static final String TAG = "FireLog";
-    ConnectivityManager cm;
-    NetworkInfo activeNetwork;
+
     Button npButton;
     Button iButton;
 
@@ -60,6 +62,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Registra el BroadcastReceiver
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        receiver = new NetworkReceiver();
+        this.registerReceiver(receiver, filter);
+
         //Autenticació a través de FirebaseUI
         firebaseUIAuth();
 
@@ -71,16 +78,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         npButton.setOnClickListener(this);
         iButton.setOnClickListener(this);
-
-        cm =(ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        if(cm != null)
-        {
-            activeNetwork = cm.getActiveNetworkInfo();
-
-            new MainActivity.CheckConnectivityTask().execute();
-        }
-
     }
 
     @Override
@@ -130,32 +127,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent intent1 = new Intent(MainActivity.this, InvitationsActivity.class);
                 startActivity(intent1);
                 break;
-        }
-    }
-
-    private class CheckConnectivityTask extends AsyncTask<Activity, Void, String> {
-
-        @Override
-        protected String doInBackground(Activity... activity) {
-
-            if(activeNetwork != null && activeNetwork.isConnectedOrConnecting())
-            {
-                if(activeNetwork.getType() == ConnectivityManager.TYPE_WIFI)
-                {
-                    return (String) getText(R.string.wifiCon);
-                }
-                else if(activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE)
-                {
-                    return (String) getText(R.string.mobCon);
-                }
-            }
-            return (String) getText(R.string.noCon);
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-            Toast toast = Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG);
-            toast.show();
         }
     }
 
@@ -225,15 +196,64 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    //TEMAS DEL RECEIVER
+    public class NetworkReceiver extends BroadcastReceiver {
+
+        NetworkInfo activeNetwork;
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            ConnectivityManager conn = (ConnectivityManager)
+                    context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+            activeNetwork = conn.getActiveNetworkInfo();
+            new CheckConnectivityTask().execute();
+
+        }
+
+        private class CheckConnectivityTask extends AsyncTask<Activity, Void, String> {
+
+            String ConType;
+            private final String WIFI = "Wi-Fi";
+            private final String ANY = "Any";
+
+            @Override
+            protected String doInBackground(Activity... activity) {
+
+                if (/*WIFI.equals(ConType) && */activeNetwork != null
+                        && activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) {
+
+                    //MAKE SOMETHING
+                    return "WIFI";
+
+
+                } else if (/*ANY.equals(ConType) &&*/ activeNetwork != null) {
+
+                    //MAKE SOMETHING
+                    return "OTRA";
+
+                } else {
+
+                    //MAKE SOMETHING
+                    return "FAIL";
+
+                }
+            }
+
+            @Override
+            protected void onPostExecute(String result) {
+                Toast toast = Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG);
+                toast.show();
+            }
+        }
+    }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        if(cm != null)
-        {
-            activeNetwork = cm.getActiveNetworkInfo();
-
-            new MainActivity.CheckConnectivityTask().execute();
+    public void onDestroy() {
+        super.onDestroy();
+        // UNregistra el receiver
+        if (receiver != null) {
+            this.unregisterReceiver(receiver);
         }
     }
 }

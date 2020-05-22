@@ -1,21 +1,15 @@
-package com.example.codesign;
-
-
+package com.example.codesign.Settings;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.RadioGroup;
-import android.widget.Spinner;
-
 import androidx.appcompat.app.AppCompatActivity;
+import com.example.codesign.R;
 
 public class SettingsActivity extends AppCompatActivity implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
 
-    String color_code, color;
+    String color_code, color, conexion;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,9 +17,11 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_settings);
 
         RadioGroup groupColor = (RadioGroup)findViewById(R.id.group_color);
+        RadioGroup groupCons = (RadioGroup)findViewById(R.id.connect_type);
         Button save = findViewById(R.id.save);
 
         groupColor.setOnCheckedChangeListener(this);
+        groupCons.setOnCheckedChangeListener(this);
         save.setOnClickListener(this);
     }
 
@@ -38,6 +34,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
 
         editor.putString("color_code", color_code);
         editor.putString("color", color);
+        editor.putString("ConType",conexion);
         editor.apply();
         finish();
     }
@@ -60,6 +57,14 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
             case R.id.Blue:
                 color_code = "#0000FF";
                 color = getString(R.string.color_blue);
+                break;
+
+            case R.id.wifi:
+                conexion ="Wi-Fi";
+                break;
+
+            case R.id.any:
+                conexion ="Any";
                 break;
         }
     }

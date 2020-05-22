@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/logo"
@@ -28,11 +29,14 @@
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SettingsActivity"></activity>
+        <activity android:name=".Settings.SettingsActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MANAGE_NETWORK_USAGE" />
+            </intent-filter>
+        </activity>
         <activity android:name=".NewProjectActivity"></activity>
         <activity android:name=".InvitationsActivity"></activity>
         <activity android:name=".Projecte.ProjectActivity" android:screenOrientation="portrait"></activity>
@@ -40,7 +44,6 @@
         <activity android:name=".ParticipantsActivity"></activity>
         <activity android:name=".Projecte.NewNoteActivity" android:screenOrientation="portrait"></activity>
         <activity android:name=".MeetingsActivity" android:screenOrientation="portrait"></activity>
-
     </application>
 
 </manifest>

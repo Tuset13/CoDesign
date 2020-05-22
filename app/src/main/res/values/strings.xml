@@ -63,6 +63,9 @@
     <string name="color_red">Vermell</string>
     <string name="color_blue">Blau</string>
     <string name="color_green">Verd</string>
+    <string name="settings_connections">Preferencies de conexió:</string>
+    <string name="wifi_type">Wi-Fi</string>
+    <string name="any_type">Any Network</string>
 
 
     <!--STRINGS GLOBALS-->
