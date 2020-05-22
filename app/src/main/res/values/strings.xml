@@ -12,7 +12,7 @@
     <string name="administrador">Projecte amb administrador</string>
     <string name="exemple_projecte">Projecte A</string>
     <string name="participants">Participants: (Fer ADD per cadascun)</string>
-    <string name="exemple_participants">Joan</string>
+    <string name="exemple_participants">joan@gmail.com</string>
     <string name="crear_projecte">Crear Projecte</string>
     <string name="addPart">Add</string>
     <string name="toastAdd">Participant afegit!</string>

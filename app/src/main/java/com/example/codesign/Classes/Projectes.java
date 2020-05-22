@@ -7,19 +7,21 @@ import java.util.List;
 public class Projectes extends ProjecteId {
 
     private boolean administrator;
-    private MyCanvas canvas;
+    //private MyCanvas canvas;
     private List<String> notes;
     private String projectName;
-    //private Meeting reunio;
+    private Meeting reunio;
+    private List<String> participants;
 
     public Projectes(){}
 
-    public Projectes(boolean administrator, MyCanvas canvas, List<String> notes, String projectName){
+    public Projectes(boolean administrator, List<String> participants, List<String> notes, String projectName, Meeting reunio){
         this.projectName = projectName;
         this.administrator = administrator;
-        this.canvas = canvas;
+        //this.canvas = canvas;
         this.notes = notes;
-        //this.reunio = reunio;
+        this.reunio = reunio;
+        this.participants = participants;
     }
 
     public String getProjectName() {
@@ -38,13 +40,21 @@ public class Projectes extends ProjecteId {
         this.administrator = administrator;
     }
 
-    public MyCanvas getCanvas() {
+    public List<String> getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(List<String> participants) {
+        this.participants = participants;
+    }
+
+/*public MyCanvas getCanvas() {
         return canvas;
     }
 
     public void setCanvas(MyCanvas canvas) {
         this.canvas = canvas;
-    }
+    }*/
 
     public List<String> getNotes() {
         return notes;
@@ -54,11 +64,11 @@ public class Projectes extends ProjecteId {
         this.notes = notes;
     }
 
-    /*public Reunions getReunio() {
+    public Meeting getReunio() {
         return reunio;
     }
 
     public void setReunio(Meeting reunio) {
         this.reunio = reunio;
-    }*/
+    }
 }

@@ -1,7 +1,6 @@
 package com.example.codesign;
 
 import android.content.ContentValues;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -12,7 +11,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.codesign.DDBB.ProjectesSQLiteHelper;
+import com.example.codesign.Classes.Projectes;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 
 import java.util.ArrayList;
@@ -20,6 +20,7 @@ import java.util.ArrayList;
 public class NewProjectActivity extends AppCompatActivity implements View.OnClickListener {
 
     ArrayList<String> partList = new ArrayList<>();
+    private FirebaseFirestore mFirestore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,12 +50,8 @@ public class NewProjectActivity extends AppCompatActivity implements View.OnClic
                     break;
                 }
                 //GUARDAR PROJECTE NOU EN DB I TORNAR A LA LLISTA DE PROJECTES
-                ProjectesSQLiteHelper usdbh = new ProjectesSQLiteHelper(this, "Projectes",null, 1);
-                SQLiteDatabase db = usdbh.getWritableDatabase();
-                if(db != null){
-                    insertinDB(db, String.valueOf(editNom.getText()), admin.isChecked());
-                }
-                db.close();
+                mFirestore = FirebaseFirestore.getInstance();
+                insertinDB(mFirestore, String.valueOf(editNom.getText()), admin.isChecked());
                 finish();
                 break;
 
@@ -76,22 +73,20 @@ public class NewProjectActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
-    private void insertinDB(SQLiteDatabase db, String projName, boolean admin){
+    private void insertinDB(FirebaseFirestore mFirestore, String projName, boolean admin){
 
-        ContentValues newRegister = new ContentValues();
+        //ContentValues newRegister = new ContentValues();
 
-        //PASSEM L'ARRAY DE PARTICIPANTS A UN SOL STRING
-        StringBuilder str = new StringBuilder();
-        for(int i=0;i<partList.size();i++) {
-            str.append(partList.get(i) + "|");
-        }
-        String participants = str.toString();
 
         //INTRODUIM ELS VALORS A LA DB
-        newRegister.put("projectName", projName);
+
+        Projectes newProject = new Projectes(admin, partList, null, projName, null);
+
+        mFirestore.collection("projectes").add(newProject);
+
+        /*newRegister.put("projectName", projName);
         newRegister.put("participants", participants);
-        newRegister.put("administrator", admin);
-        db.insert("Projectes", null, newRegister);
+        newRegister.put("administrator", admin);*/
     }
 
     public boolean isEmpty(EditText editText){
