@@ -20,6 +20,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.codesign.MeetingsActivity;
 import com.example.codesign.ParticipantsActivity;
+import com.example.codesign.PropertiesActivity;
 import com.example.codesign.R;
 import com.example.codesign.Settings.SettingsActivity;
 
@@ -82,7 +83,8 @@ public class ProjectActivity extends AppCompatActivity implements View.OnClickLi
         switch (item.getItemId()) {
 
             case R.id.propietats:
-                //intent
+                Intent properties = new Intent(this, PropertiesActivity.class);
+                startActivity(properties);
                 return true;
 
             case R.id.settings:
