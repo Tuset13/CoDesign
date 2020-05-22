@@ -109,6 +109,7 @@
     <string name="WifiLost">S\'ha perdut la conexió Wi-Fi, vols continuar gastant dades?</string>
     <string name="ConnexionLost">S\'ha perdut la conexió a Internet, comprova la teva conexió i prova a accedir de nou.</string>
     <string name="NetworkIssues">Problemes de Xarxa</string>
-
+    <string name="ConRes">ConRes</string>
+    <string name="isConnected">isConnected</string>
 
 </resources>

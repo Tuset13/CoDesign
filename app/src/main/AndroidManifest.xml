@@ -44,6 +44,7 @@
         <activity android:name=".Projecte.NewNoteActivity" android:screenOrientation="portrait"></activity>
         <activity android:name=".MeetingsActivity" android:screenOrientation="portrait"></activity>
         <activity android:name=".PropertiesActivity" ></activity>
+        <activity android:name=".Settings.ConnexionActivity" ></activity>
     </application>
 
 </manifest>

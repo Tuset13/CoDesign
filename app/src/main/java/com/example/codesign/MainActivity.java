@@ -16,6 +16,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
+import android.net.Network;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -28,6 +29,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.codesign.Classes.Projectes;
+import com.example.codesign.Settings.ConnexionActivity;
 import com.example.codesign.Settings.SettingsActivity;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
@@ -209,21 +211,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             ConnectivityManager conn = (ConnectivityManager)
                     context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
-            activeNetwork = conn.getActiveNetworkInfo();
-            new CheckConnectivityTask(context).execute();
-
+            if (conn != null) {
+                activeNetwork = conn.getActiveNetworkInfo();
+            }
+            new CheckConnectivityTask().execute();
         }
 
         private class CheckConnectivityTask extends AsyncTask<Activity, Void, String> {
 
             private final String WIFI = "Wi-Fi";
             private final String ANY = "Any";
-
-            private Context mContext;
-
-            public CheckConnectivityTask (Context context){
-                mContext = context;
-            }
 
             @Override
             protected String doInBackground(Activity... activity) {
@@ -232,50 +229,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         && activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
 
                     return getString(R.string.WifiLost);
-
-                } else if (!isConnectionOn()) {
-
+                } else if (ANY.equals(ConType) && activeNetwork != null
+                        && (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI
+                        || activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE)) {
+                    return null;
+                } else {
                     return getString(R.string.ConnexionLost);
-
                 }
-                return null;
             }
 
             @Override
             protected void onPostExecute(String result) {
                 if(result != null) {
-                    final AlertDialog.Builder connexionDialog = new AlertDialog.Builder(mContext);
-                    connexionDialog.setTitle(R.string.NetworkIssues);
-                    connexionDialog.setMessage(result);
-                    if(isConnectionOn()) {
-                        connexionDialog.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                SharedPreferences sharedPrefs = getSharedPreferences("settings", MODE_PRIVATE);
-                                SharedPreferences.Editor editor =  sharedPrefs.edit();
-                                editor.putString("ConType", "Any");
-                                editor.apply();
-                                finish();
-                            }
-                        });
-                        connexionDialog.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                finishAffinity();
-                            }
-                        });
-                    } else {
-                        connexionDialog.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                // Si marques OK, tanca l'aplicacio
-                                //finish();
-                                //finishAffinity();
-                                //System.exit(0);
-                            }
-                        });
-                    }
-                    connexionDialog.show();
+                    startDialog(result, isConnectionOn());
                 }
             }
 
@@ -287,6 +253,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 return ret;
             }
         }
+    }
+
+    private void startDialog(String result, boolean isOn) {
+        //Toast.makeText(this,"PROVA",Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, ConnexionActivity.class);
+        intent.putExtra(getString(R.string.ConRes), result);
+        intent.putExtra(getString(R.string.isConnected), isOn);
+        startActivity(intent);
     }
 
     @Override
@@ -304,6 +278,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         SharedPreferences sharedPrefs = getSharedPreferences("settings",MODE_PRIVATE);
 
-        ConType = sharedPrefs.getString("ConType", "Wi-Fi");
+        ConType = sharedPrefs.getString("ConType", "Any");
     }
 }
