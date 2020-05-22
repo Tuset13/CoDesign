@@ -12,6 +12,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -50,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     Button npButton;
     Button iButton;
+    String ConType;
 
     private RecyclerView mMainList;
     private FirebaseFirestore mFirestore;
@@ -213,21 +215,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         private class CheckConnectivityTask extends AsyncTask<Activity, Void, String> {
 
-            String ConType;
             private final String WIFI = "Wi-Fi";
             private final String ANY = "Any";
 
             @Override
             protected String doInBackground(Activity... activity) {
 
-                if (/*WIFI.equals(ConType) && */activeNetwork != null
+                if (WIFI.equals(ConType) && activeNetwork != null
                         && activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) {
 
                     //MAKE SOMETHING
                     return "WIFI";
 
 
-                } else if (/*ANY.equals(ConType) &&*/ activeNetwork != null) {
+                } else if (ANY.equals(ConType) && activeNetwork != null) {
 
                     //MAKE SOMETHING
                     return "OTRA";
@@ -255,5 +256,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (receiver != null) {
             this.unregisterReceiver(receiver);
         }
+    }
+
+    @Override
+    public void onStart () {
+        super.onStart();
+
+        SharedPreferences sharedPrefs = getSharedPreferences("settings",MODE_PRIVATE);
+
+        ConType = sharedPrefs.getString("ConType", "Wi-Fi");
     }
 }
