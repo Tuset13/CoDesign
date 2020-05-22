@@ -1,17 +1,25 @@
 package com.example.codesign;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+
 public class ParticipantsActivity extends AppCompatActivity implements View.OnClickListener {
 
     EditText editText;
+    TextView textView;
+    private FirebaseFirestore mFirestore;
+
+    private String idProjecte;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,8 +29,16 @@ public class ParticipantsActivity extends AppCompatActivity implements View.OnCl
         Button pButton = findViewById(R.id.afegirPart);
         Button bButton = findViewById(R.id.tornarProj);
         editText = findViewById(R.id.newParticipants);
+        textView = findViewById(R.id.participantsList);
         pButton.setOnClickListener(this);
         bButton.setOnClickListener(this);
+
+        mFirestore = FirebaseFirestore.getInstance();
+
+        Intent dataIntent = getIntent();
+        idProjecte = dataIntent.getStringExtra(getString(R.string.id_key));
+
+        llistarParticipants();
     }
 
     @Override
@@ -54,5 +70,9 @@ public class ParticipantsActivity extends AppCompatActivity implements View.OnCl
             return true;
         }
         return false;
+    }
+
+    private void llistarParticipants(){
+
     }
 }

@@ -38,6 +38,8 @@ public class ProjectActivity extends AppCompatActivity implements View.OnClickLi
     private String[] llistaNotes = new String[12];
     private int numNotes = 0;
 
+    private String idProjecte;
+
     //REFERENCIES DE LA GRID HARDCODEJADA
     TextView textGrid0;
     TextView textGrid1;
@@ -68,6 +70,9 @@ public class ProjectActivity extends AppCompatActivity implements View.OnClickLi
         anButton.setOnClickListener(this);
         mButton.setOnClickListener(this);
 
+        Intent dataIntent = getIntent();
+        idProjecte = dataIntent.getStringExtra(getString(R.string.id_key));
+
         instanciesHardcodeGridiNotes();
     }
 
@@ -84,6 +89,7 @@ public class ProjectActivity extends AppCompatActivity implements View.OnClickLi
 
             case R.id.propietats:
                 Intent properties = new Intent(this, PropertiesActivity.class);
+                properties.putExtra(getString(R.string.id_key), idProjecte);
                 startActivity(properties);
                 return true;
 
@@ -98,6 +104,7 @@ public class ProjectActivity extends AppCompatActivity implements View.OnClickLi
 
             case R.id.participants:
                 Intent intent1 = new Intent(ProjectActivity.this, ParticipantsActivity.class);
+                intent1.putExtra(getString(R.string.id_key), idProjecte);
                 startActivity(intent1);
                 return true;
 
@@ -172,8 +179,6 @@ public class ProjectActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     public void enviarIdProjecte(){
-        Intent dataIntent = getIntent();
-        String idProjecte = dataIntent.getStringExtra(getString(R.string.id_key));
         Intent intent = new Intent(ProjectActivity.this, CanvasActivity.class);
         intent.putExtra(getString(R.string.id_key), idProjecte);
         startActivityForResult(intent, IMAGE_REQUEST);
@@ -181,15 +186,7 @@ public class ProjectActivity extends AppCompatActivity implements View.OnClickLi
 
     public void borrarProjecte(){
         // INSTANCIEM LA DB
-        ProjectesSQLiteHelper usdbh = new ProjectesSQLiteHelper(this, "Projectes",null, 1);
-        SQLiteDatabase db = usdbh.getWritableDatabase();
-        if(db != null){
-            // BORREM EL PROJECTE RECUPERANT LA ID A TRAVES DEL INTENT
-            String id = getIntent().getStringExtra(getString(R.string.id_key));
-            db.delete("Projectes", "_Id=?", new String[]{id});
-            Toast.makeText(this, R.string.borrarToast, Toast.LENGTH_LONG).show();
-        }
-        db.close();
+        //TODO
     }
 
     public void instanciesHardcodeGridiNotes(){
