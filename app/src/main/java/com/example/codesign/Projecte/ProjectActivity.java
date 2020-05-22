@@ -13,15 +13,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.codesign.DDBB.ProjectesSQLiteHelper;
 import com.example.codesign.MeetingsActivity;
 import com.example.codesign.ParticipantsActivity;
 import com.example.codesign.R;
@@ -85,6 +81,10 @@ public class ProjectActivity extends AppCompatActivity implements View.OnClickLi
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
 
+            case R.id.propietats:
+                //intent
+                return true;
+
             case R.id.settings:
                 Intent intent = new Intent(ProjectActivity.this, SettingsActivity.class);
                 startActivity(intent);
@@ -100,7 +100,6 @@ public class ProjectActivity extends AppCompatActivity implements View.OnClickLi
                 return true;
 
             case R.id.borrar:
-
                 //INSTANCIEM UN ALERT DIALOG
                 final AlertDialog.Builder newDialog = new AlertDialog.Builder(this);
                 newDialog.setTitle(R.string.adTitle);

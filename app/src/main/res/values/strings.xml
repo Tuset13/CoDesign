@@ -99,4 +99,8 @@
     <string name="NameExample">Exemple Titol</string>
     <string name="TimeExample">YYYY-MM-DD hh:mm:ss</string>
     <string name="DescExample">Description exemple</string>
+
+    <!--STRINGS DE PANTALLA PARTICIPANTS-->
+    <string name="TitleProperties">Nom del Projecte</string>
+    <string name="ListProperties">Llista de Participants</string>
 </resources>
