@@ -33,7 +33,8 @@ public class PropertiesActivity extends AppCompatActivity implements View.OnClic
     private EditText editText;
     private TextView llistaPart;
     private TextView titleProperties;
-    //private Projectes projecte;
+    private List<String> partList;
+
 
     private String idProjecte;
 
@@ -110,7 +111,7 @@ public class PropertiesActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void llistarParticipants(Projectes projecte){
-        List<String> partList = projecte.getParticipants();
+        partList = projecte.getParticipants();
         String textPart = "";
         for(int i = 0; i < partList.size(); i++){
             if(i == (partList.size() - 1)){
@@ -123,7 +124,10 @@ public class PropertiesActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void afegirParticipant(){
-
+        partList.add(editText.getText().toString());
+        DocumentReference docRef = mFirestore.collection("projectes").document(idProjecte);
+        docRef.update("participants", partList);
+        llegirDades();
     }
 
 }
