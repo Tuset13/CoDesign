@@ -210,69 +210,59 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //TEMAS DEL RECEIVER
     public class NetworkReceiver extends BroadcastReceiver {
 
-        NetworkInfo activeNetwork;
-
         @Override
         public void onReceive(Context context, Intent intent) {
+
+            SharedPreferences sharedPrefs = getSharedPreferences("settings",MODE_PRIVATE);
+            ConType = sharedPrefs.getString("ConType", "Wi-Fi");
+
             ConnectivityManager conn = (ConnectivityManager)
                     context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
-            if (conn != null) {
-                activeNetwork = conn.getActiveNetworkInfo();
-            }
-            new CheckConnectivityTask().execute();
+            NetworkInfo activeNetwork = conn.getActiveNetworkInfo();
+            new CheckConnectivityTask(activeNetwork).execute();
+        }
+    }
+
+    private class CheckConnectivityTask extends AsyncTask<Activity, Void, String> {
+
+        private final String WIFI = "Wi-Fi";
+        private final String ANY = "Any";
+        NetworkInfo activeNetwork;
+
+        public CheckConnectivityTask(NetworkInfo activeNetwork) {
+            this.activeNetwork = activeNetwork;
         }
 
-        private class CheckConnectivityTask extends AsyncTask<Activity, Void, String> {
+        @Override
+        protected String doInBackground(Activity... activity) {
 
-            private final String WIFI = "Wi-Fi";
-            private final String ANY = "Any";
+            if (WIFI.equals(ConType) && activeNetwork != null
+                    && activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
 
-            @Override
-            protected String doInBackground(Activity... activity) {
-
-                if (WIFI.equals(ConType) && activeNetwork != null
-                        && activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
-
-                    return getString(R.string.WifiLost);
-                } else if (ANY.equals(ConType) && activeNetwork != null
-                        && (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI
-                        || activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE)) {
-                    return null;
-                } else {
-                    return getString(R.string.ConnexionLost);
-                }
+                return getString(R.string.WifiLost);
             }
+            return null;
+        }
 
-            @Override
-            protected void onPostExecute(String result) {
-                if(result != null) {
-                    startDialog(result, isConnectionOn());
-                }
-            }
-
-            private boolean isConnectionOn() {
-                boolean ret = false;
-                if(activeNetwork != null) {
-                    ret = true;
-                }
-                return ret;
+        @Override
+        protected void onPostExecute(String result) {
+            if(result != null) {
+                startDialog(result);
             }
         }
     }
 
-    private void startDialog(String result, boolean isOn) {
-        //Toast.makeText(this,"PROVA",Toast.LENGTH_SHORT).show();
+    private void startDialog(String result) {
         Intent intent = new Intent(this, ConnexionActivity.class);
         intent.putExtra(getString(R.string.ConRes), result);
-        intent.putExtra(getString(R.string.isConnected), isOn);
         startActivity(intent);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        // UNregistra el receiver
+        // Desregistra el receiver
         if (receiver != null) {
             this.unregisterReceiver(receiver);
         }
@@ -283,7 +273,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onStart();
 
         SharedPreferences sharedPrefs = getSharedPreferences("settings",MODE_PRIVATE);
+        ConType = sharedPrefs.getString("ConType", "Wi-Fi");
+        ConnectivityManager conn = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        ConType = sharedPrefs.getString("ConType", "Any");
+        NetworkInfo activeNetwork = conn.getActiveNetworkInfo();
+        new CheckConnectivityTask(activeNetwork).execute();
     }
 }
