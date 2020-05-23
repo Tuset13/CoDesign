@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,6 +36,8 @@ import com.example.codesign.Settings.SettingsActivity;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -62,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private List<Projectes> projectesList;
     private ProjectesListAdapter projectesListAdapter;
 
+    private Context mainContext = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,6 +161,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mMainList.setHasFixedSize(true);
         mMainList.setLayoutManager(new LinearLayoutManager(this));
         mMainList.setAdapter(projectesListAdapter);
+        RecyclerView.ItemDecoration divider = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        mMainList.addItemDecoration(divider);
 
         mFirestore = FirebaseFirestore.getInstance();
 
@@ -176,17 +183,74 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         projectesList.add(projectes);
 
                         projectesListAdapter.notifyDataSetChanged();
-                    } else if(doc.getType() == DocumentChange.Type.REMOVED){
-
-                        Projectes projectes = doc.getDocument().toObject(Projectes.class);
-                        projectesList.remove(projectes);
-
-                        projectesListAdapter.notifyDataSetChanged();
                     }
-
                 }
             }
         });
+
+        swipeToDelete();
+    }
+
+    private void swipeToDelete(){
+
+        ItemTouchHelper helper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+
+                final int position = viewHolder.getAdapterPosition();
+
+                final Projectes project = projectesList.get(position);
+
+                final AlertDialog.Builder newDialog = new AlertDialog.Builder(mainContext);
+                newDialog.setTitle(R.string.adTitle);
+                newDialog.setMessage(R.string.adMessage);
+                newDialog.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // EN CAS DE DIR QUE SI, BORREM EL PROJECTE
+                        borrarProjecte(project, position);
+                    }
+                });
+                newDialog.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        projectesListAdapter.notifyDataSetChanged();
+                        dialogInterface.cancel();
+                    }
+                });
+                newDialog.show();
+            }
+        });
+
+        helper.attachToRecyclerView(mMainList);
+    }
+
+    private void borrarProjecte(Projectes project, final int position){
+
+        // INSTANCIEM LA DB
+        mFirestore = FirebaseFirestore.getInstance();
+
+        mFirestore.collection("projectes").document(project.projecteId)
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        projectesList.remove(position);
+                        projectesListAdapter.notifyDataSetChanged();
+                        Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error deleting document", e);
+                    }
+                });
     }
 
     @Override

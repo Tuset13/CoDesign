@@ -89,14 +89,7 @@ public class CanvasActivity extends AppCompatActivity implements View.OnClickLis
                 return true;
 
             case R.id.exit:
-                AuthUI.getInstance()
-                        .signOut(this)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                finish();
-                            }
-                        });
+                finish();
                 return true;
 
             default:

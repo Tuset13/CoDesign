@@ -5,8 +5,6 @@
         android:title="@string/settings"></item>
     <item android:id="@+id/propietats"
         android:title="@string/menu_popietats"></item>
-    <item android:id="@+id/borrar"
-        android:title="@string/menu_borrar"></item>
     <item android:id="@+id/exit"
         android:title="@string/menu_exit"></item>
 </menu>

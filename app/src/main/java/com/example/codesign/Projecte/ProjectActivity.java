@@ -117,27 +117,6 @@ public class ProjectActivity extends AppCompatActivity implements View.OnClickLi
                 finish();
                 return true;
 
-            case R.id.borrar:
-                //INSTANCIEM UN ALERT DIALOG
-                final AlertDialog.Builder newDialog = new AlertDialog.Builder(this);
-                newDialog.setTitle(R.string.adTitle);
-                newDialog.setMessage(R.string.adMessage);
-                newDialog.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        // EN CAS DE DIR QUE SI, BORREM EL PROJECTE
-                        borrarProjecte();
-                    }
-                });
-                newDialog.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.cancel();
-                    }
-                });
-                newDialog.show();
-                return true;
-
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -187,27 +166,6 @@ public class ProjectActivity extends AppCompatActivity implements View.OnClickLi
         Intent intent = new Intent(ProjectActivity.this, CanvasActivity.class);
         intent.putExtra(getString(R.string.id_key), idProjecte);
         startActivityForResult(intent, IMAGE_REQUEST);
-    }
-
-    public void borrarProjecte(){
-        // INSTANCIEM LA DB
-        mFirestore = FirebaseFirestore.getInstance();
-
-        mFirestore.collection("projectes").document(idProjecte)
-                .delete()
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d(TAG, "DocumentSnapshot successfully deleted!");
-                        finish();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error deleting document", e);
-                    }
-                });
     }
 
     private void llistarNotes(){
