@@ -6,9 +6,6 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,11 +15,17 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.codesign.Classes.Projectes;
 import com.example.codesign.R;
-import com.example.codesign.Settings.SettingsActivity;
-import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.lang.reflect.Array;
+import java.util.List;
 
 public class NewNoteActivity extends AppCompatActivity implements View.OnClickListener, SensorEventListener {
 
@@ -30,6 +33,12 @@ public class NewNoteActivity extends AppCompatActivity implements View.OnClickLi
     private EditText editNote;
     private TextView textAcc;
     private long lastUpdate;
+    private List<String> notesList;
+    private String result;
+
+    private static final String TAG = "FireLog";
+    private FirebaseFirestore mFirestore;
+    private String idProjecte;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,49 +59,16 @@ public class NewNoteActivity extends AppCompatActivity implements View.OnClickLi
         createListeners();
     }
 
-    //IMPLEMENTACIONS DE MENU
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.settings:
-                Intent intent = new Intent(this, SettingsActivity.class);
-                startActivity(intent);
-                return true;
-
-            case R.id.exit:
-                AuthUI.getInstance()
-                        .signOut(this)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                finish();
-                            }
-                        });
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
     @Override
     public void onClick(View view) {
         switch(view.getId()){
             case R.id.acceptarNote:
 
                 //RETORNEM EL STRING RESULTANT COM A VALOR
-                String result = String.valueOf(editNote.getText());
-                Intent intent=new Intent();
-                intent.putExtra("result", result);
-                setResult(RESULT_OK, intent);
-                finish();
+                result = String.valueOf(editNote.getText());
+
+                operarNota();
+
                 break;
             case R.id.tornarNote:
                 finish();
@@ -143,6 +119,39 @@ public class NewNoteActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
         // Do something here if sensor accuracy changes.
+    }
+
+    private void operarNota(){
+        mFirestore = FirebaseFirestore.getInstance();
+
+        Intent dataIntent = getIntent();
+        idProjecte = dataIntent.getStringExtra(getString(R.string.id_key));
+
+        DocumentReference docRef = mFirestore.collection("projectes").document(idProjecte);
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+
+                Projectes projecte = documentSnapshot.toObject(Projectes.class);
+                guardarNota(projecte);
+            }
+        });
+    }
+
+    private void guardarNota(Projectes projecte){
+        notesList = projecte.getNotes();
+        notesList.add(result);
+
+        DocumentReference docRef = mFirestore.collection("projectes").document(idProjecte);
+        docRef.update("notes", notesList).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                Intent intent=new Intent();
+                intent.putExtra("result", result);
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
     }
 
     @Override

@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,26 +16,42 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.codesign.Classes.Projectes;
 import com.example.codesign.MeetingsActivity;
 import com.example.codesign.PropertiesActivity;
 import com.example.codesign.R;
 import com.example.codesign.Settings.SettingsActivity;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.List;
 
 public class ProjectActivity extends AppCompatActivity implements View.OnClickListener  {
 
     static final int IMAGE_REQUEST = 1;
     static final int TEXT_REQUEST = 2;
 
-    private String newNote;
+    private static final String TAG = "FireLog";
+
     private Bitmap imatgeBackground;
     private LinearLayout background;
 
-    private String[] llistaNotes = new String[12];
-    private int numNotes = 0;
+    private List<String> llistaNotes;
 
     private String idProjecte;
+    private FirebaseFirestore mFirestore;
 
     //REFERENCIES DE LA GRID HARDCODEJADA
     TextView textGrid0;
@@ -70,6 +87,8 @@ public class ProjectActivity extends AppCompatActivity implements View.OnClickLi
         idProjecte = dataIntent.getStringExtra(getString(R.string.id_key));
 
         instanciesHardcodeGridiNotes();
+
+        llistarNotes();
     }
 
     @Override
@@ -108,7 +127,6 @@ public class ProjectActivity extends AppCompatActivity implements View.OnClickLi
                     public void onClick(DialogInterface dialogInterface, int i) {
                         // EN CAS DE DIR QUE SI, BORREM EL PROJECTE
                         borrarProjecte();
-                        finish();
                     }
                 });
                 newDialog.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
@@ -135,6 +153,7 @@ public class ProjectActivity extends AppCompatActivity implements View.OnClickLi
 
             case R.id.afegir_nota:
                 Intent intent1 = new Intent(ProjectActivity.this, NewNoteActivity.class);
+                intent1.putExtra(getString(R.string.id_key), idProjecte);
                 startActivityForResult(intent1, TEXT_REQUEST);
                 break;
 
@@ -157,13 +176,9 @@ public class ProjectActivity extends AppCompatActivity implements View.OnClickLi
                 Drawable backImage = new BitmapDrawable(getResources(), imatgeBackground);
                 background.setBackground(backImage);
             }else if(requestCode == TEXT_REQUEST){
-                // TEXT DE LA NOVA NOTA
-                newNote = data.getStringExtra("result");
-                llistaNotes[numNotes] = newNote;
 
-                //PART HARCODEJADA PER A SIMULAR LA REPRESENTACIO DE LES NOTES SOBRE EL CANVAS
-                //EL RESULTAT FINAL EN LA SEGONA ENTREGA NO ES VEURE AIXI NI ESTARA FET AIXI
-                hardcodeGridiNotes();
+                //REPRESENTACIO DE LES NOTES SOBRE EL CANVAS
+                llistarNotes();
             }
         }
     }
@@ -176,7 +191,41 @@ public class ProjectActivity extends AppCompatActivity implements View.OnClickLi
 
     public void borrarProjecte(){
         // INSTANCIEM LA DB
-        //TODO
+        mFirestore = FirebaseFirestore.getInstance();
+
+        mFirestore.collection("projectes").document(idProjecte)
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "DocumentSnapshot successfully deleted!");
+                        finish();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error deleting document", e);
+                    }
+                });
+    }
+
+    private void llistarNotes(){
+
+        mFirestore = FirebaseFirestore.getInstance();
+
+        DocumentReference docRef = mFirestore.collection("projectes").document(idProjecte);
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+
+                Projectes projecte = documentSnapshot.toObject(Projectes.class);
+
+                hardcodeGridiNotes(projecte);
+
+            }
+        });
+
     }
 
     public void instanciesHardcodeGridiNotes(){
@@ -196,11 +245,13 @@ public class ProjectActivity extends AppCompatActivity implements View.OnClickLi
                                                 textGrid6, textGrid7, textGrid8, textGrid9, textGrid10, textGrid11};
     }
 
-    public void hardcodeGridiNotes(){
-        if(numNotes < 9){
-            textGrid[numNotes].setText(newNote);
-            textGrid[numNotes].setBackgroundColor(getResources().getColor(R.color.notesColor));
-            numNotes++;
+    public void hardcodeGridiNotes(Projectes projecte){
+
+        llistaNotes = projecte.getNotes();
+
+        for(int i = 0; i < llistaNotes.size() && i < 12; i++){
+            textGrid[i].setText(llistaNotes.get(i));
+            textGrid[i].setBackgroundColor(getResources().getColor(R.color.notesColor));
         }
     }
 }
