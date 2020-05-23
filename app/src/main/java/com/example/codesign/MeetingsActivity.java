@@ -172,7 +172,7 @@ public class MeetingsActivity extends AppCompatActivity implements View.OnClickL
 
         markerOptions.position(latLng);
 
-        markerOptions.title(latLng.latitude + " : " + latLng.longitude);
+        markerOptions.title(getString(R.string.Marker));
 
         location = new GeoPoint(latLng.latitude, latLng.longitude);
 

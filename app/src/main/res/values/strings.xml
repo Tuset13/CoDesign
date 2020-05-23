@@ -94,12 +94,13 @@
     <string name="EditMeeting">Editar</string>
     <string name="Meetings">Reunió</string>
     <string name="Back">Tornar</string>
+    <string name="Marker">LLoc de la Reunió</string>
     <string name="NameMeeting">Nom de la Reunió:</string>
     <string name="TimeMeeting">Hora de la Reunió:</string>
     <string name="DescMeeting">Descripció:</string>
-    <string name="NameExample">Exemple Titol</string>
+    <string name="NameExample">Example Titol</string>
     <string name="TimeExample">YYYY-MM-DD hh:mm:ss</string>
-    <string name="DescExample">Description exemple</string>
+    <string name="DescExample">Description example</string>
 
     <!--STRINGS DE PANTALLA PARTICIPANTS-->
     <string name="TitleProperties">Nom del Projecte</string>
