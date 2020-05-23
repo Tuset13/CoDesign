@@ -176,6 +176,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         projectesList.add(projectes);
 
                         projectesListAdapter.notifyDataSetChanged();
+                    } else if(doc.getType() == DocumentChange.Type.REMOVED){
+
+                        Projectes projectes = doc.getDocument().toObject(Projectes.class);
+                        projectesList.remove(projectes);
+
+                        projectesListAdapter.notifyDataSetChanged();
                     }
 
                 }

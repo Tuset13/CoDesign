@@ -16,11 +16,13 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class NewProjectActivity extends AppCompatActivity implements View.OnClickListener {
 
-    ArrayList<String> partList = new ArrayList<>();
+    private ArrayList<String> partList = new ArrayList<>();
     private FirebaseFirestore mFirestore;
+    private ArrayList<String> notesList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +79,7 @@ public class NewProjectActivity extends AppCompatActivity implements View.OnClic
 
         //INTRODUIM ELS VALORS A LA DB
 
-        Projectes newProject = new Projectes(admin, partList, null, projName, null);
+        Projectes newProject = new Projectes(admin, partList, notesList, projName, null);
 
         mFirestore.collection("projectes").add(newProject);
 
