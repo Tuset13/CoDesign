@@ -3,27 +3,19 @@ package com.example.codesign;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.codesign.Classes.Projectes;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class PropertiesActivity extends AppCompatActivity implements View.OnClickListener {
@@ -31,10 +23,8 @@ public class PropertiesActivity extends AppCompatActivity implements View.OnClic
     private static final String TAG = "FireLog";
     private FirebaseFirestore mFirestore;
     private EditText editText;
-    private TextView llistaPart;
     private TextView titleProperties;
     private List<String> partList;
-
 
     private String idProjecte;
 
@@ -44,7 +34,6 @@ public class PropertiesActivity extends AppCompatActivity implements View.OnClic
         setContentView(R.layout.activity_properties);
 
         titleProperties = findViewById(R.id.ProjectTitle);
-        llistaPart = findViewById(R.id.participantsList);
         editText = findViewById(R.id.newParticipants);
         Button back = findViewById(R.id.tornarProperties);
         Button pButton = findViewById(R.id.afegirPart);
@@ -112,15 +101,9 @@ public class PropertiesActivity extends AppCompatActivity implements View.OnClic
 
     private void llistarParticipants(Projectes projecte){
         partList = projecte.getParticipants();
-        String textPart = "";
-        for(int i = 0; i < partList.size(); i++){
-            if(i == (partList.size() - 1)){
-                textPart = textPart + partList.get(i);
-            }else{
-                textPart = (textPart + partList.get(i) + "\n\n");
-            }
-        }
-        llistaPart.setText(textPart);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, partList);
+        ListView lv = (ListView) findViewById(R.id.partList);
+        lv.setAdapter(adapter);
     }
 
     private void afegirParticipant(){
