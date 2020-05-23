@@ -2,6 +2,7 @@ package com.example.codesign;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -23,11 +24,15 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
 
 import java.sql.Timestamp;
 
 public class MeetingsActivity extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback, GoogleMap.OnMapClickListener {
+
+    private static final String TAG = "FireLog";
 
     Button editAndSave, back;
     EditText nameEdit,timeEdit,descEdit;
@@ -35,6 +40,11 @@ public class MeetingsActivity extends AppCompatActivity implements View.OnClickL
     Timestamp time;
     private GoogleMap mMap;
     private GeoPoint location;
+
+    private FirebaseFirestore mFirestore;
+    private String idProjecte;
+
+    private Meeting meeting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +62,17 @@ public class MeetingsActivity extends AppCompatActivity implements View.OnClickL
             mapFragment.getMapAsync( this);
         }
 
-        //SI EXISTEIXEN DADES PREVIES EXECUTA FUNCIO
-        //getMeetingFromDataBase();
+        mFirestore = FirebaseFirestore.getInstance();
+
+        Intent dataIntent = getIntent();
+        idProjecte = dataIntent.getStringExtra(getString(R.string.id_key));
+
+        //AGAFEM DADES PREVIES DE LA BASE DE DADES
+        getMeetingFromDataBase();
+        //SI EXISTEIXEN AQUESTES DADES, LES REPRESENTEM
+        if(meeting != null){
+            showMeeting();
+        }
     }
 
     //IMPLEMENTACIONS DE MENU
@@ -73,14 +92,7 @@ public class MeetingsActivity extends AppCompatActivity implements View.OnClickL
                 return true;
 
             case R.id.exit:
-                AuthUI.getInstance()
-                        .signOut(this)
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                finish();
-                            }
-                        });
+                finish();
                 return true;
 
             default:
@@ -141,19 +153,38 @@ public class MeetingsActivity extends AppCompatActivity implements View.OnClickL
         nameEdit.setVisibility(View.VISIBLE);
         timeEdit.setVisibility(View.VISIBLE);
         descEdit.setVisibility(View.VISIBLE);
+
+
     }
 
     //FUNCIO PER GUARDAR A LA BASE DE DADES
     private void saveOnDataBase() {
 
-        //CREEM UNA REUNIO
-        Meeting meeting = new Meeting(nameEdit.getText().toString(), descEdit.getText().toString(), time, location);
+        //CREEM LA REUNIO
+        meeting = new Meeting(nameEdit.getText().toString(), descEdit.getText().toString(), time, location);
         //GUARDAR A LA BASE DE DADES
+        mFirestore.collection("reunions").add(meeting).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentReference> task) {
+                DocumentReference docRef = task.getResult();
+                mFirestore.collection("projectes").document(idProjecte).update("reunio", docRef)
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Log.d(TAG, "Reunió updated successfully");
+                            }
+                        });
+            }
+        });
     }
 
     //FUNCIO PER RECUPERAR DE LA BASE DE DADES
     private void getMeetingFromDataBase() {
-        //HEM DE RECUPERAR LES DADES DE LA REUNIO
+
+    }
+
+    private void showMeeting(){
+
     }
 
     //FUNCIONS DEL MAPA

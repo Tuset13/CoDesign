@@ -1,6 +1,9 @@
 package com.example.codesign.Classes;
 
 import com.example.codesign.Projecte.MyCanvas;
+import com.google.firebase.firestore.DocumentReference;
+
+import org.w3c.dom.Document;
 
 import java.util.List;
 
@@ -10,12 +13,12 @@ public class Projectes extends ProjecteId {
     //private MyCanvas canvas;
     private List<String> notes;
     private String projectName;
-    private Meeting reunio;
+    private DocumentReference reunio;
     private List<String> participants;
 
     public Projectes(){}
 
-    public Projectes(boolean administrator, List<String> participants, List<String> notes, String projectName, Meeting reunio){
+    public Projectes(boolean administrator, List<String> participants, List<String> notes, String projectName, DocumentReference reunio){
         this.projectName = projectName;
         this.administrator = administrator;
         //this.canvas = canvas;
@@ -64,11 +67,11 @@ public class Projectes extends ProjecteId {
         this.notes = notes;
     }
 
-    public Meeting getReunio() {
+    public DocumentReference getReunio() {
         return reunio;
     }
 
-    public void setReunio(Meeting reunio) {
+    public void setReunio(DocumentReference reunio) {
         this.reunio = reunio;
     }
 }

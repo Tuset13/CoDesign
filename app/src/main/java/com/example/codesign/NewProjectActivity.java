@@ -11,12 +11,13 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+
 import com.example.codesign.Classes.Projectes;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class NewProjectActivity extends AppCompatActivity implements View.OnClickListener {
 

@@ -138,6 +138,7 @@ public class ProjectActivity extends AppCompatActivity implements View.OnClickLi
 
             case R.id.anar_reunio:
                 Intent meetIntent = new Intent(ProjectActivity.this, MeetingsActivity.class);
+                meetIntent.putExtra(getString(R.string.id_key), idProjecte);
                 startActivity(meetIntent);
                 break;
         }
