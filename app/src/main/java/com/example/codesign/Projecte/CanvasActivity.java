@@ -3,30 +3,18 @@ package com.example.codesign.Projecte;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.codesign.Classes.Projectes;
-import com.example.codesign.MainActivity;
 import com.example.codesign.R;
 import com.example.codesign.Settings.SettingsActivity;
-import com.firebase.ui.auth.AuthUI;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
+
 
 import java.io.ByteArrayOutputStream;
 
@@ -39,7 +27,6 @@ public class CanvasActivity extends AppCompatActivity implements View.OnClickLis
     SharedPreferences mypreferences;
     private String idProjecte;
 
-    //private FirebaseFirestore mFirestore;
 
     private String buttonEraserText;
 
@@ -65,11 +52,9 @@ public class CanvasActivity extends AppCompatActivity implements View.OnClickLis
         eraser.setOnClickListener(this);
         back.setOnClickListener(this);
 
-        //mFirestore = FirebaseFirestore.getInstance();
         Intent dataIntent = getIntent();
         idProjecte = dataIntent.getStringExtra(getString(R.string.id_key));
 
-        //comprovarCanvasExistent();
     }
 
     //IMPLEMENTACIONS DE MENU
@@ -147,7 +132,6 @@ public class CanvasActivity extends AppCompatActivity implements View.OnClickLis
             //BOTO PER TORNAR AL PROJECTE I RETORNAR LA IMATGE RESULTANT
             case R.id.tornarProject:
                 retornarImatge();
-                //guardarCanvas();
                 finish();
                 break;
         }
