@@ -127,7 +127,7 @@ public class NewNoteActivity extends AppCompatActivity implements View.OnClickLi
         Intent dataIntent = getIntent();
         idProjecte = dataIntent.getStringExtra(getString(R.string.id_key));
 
-        DocumentReference docRef = mFirestore.collection("projectes").document(idProjecte);
+        DocumentReference docRef = mFirestore.collection(getString(R.string.ColProj)).document(idProjecte);
         docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -142,7 +142,7 @@ public class NewNoteActivity extends AppCompatActivity implements View.OnClickLi
         notesList = projecte.getNotes();
         notesList.add(result);
 
-        DocumentReference docRef = mFirestore.collection("projectes").document(idProjecte);
+        DocumentReference docRef = mFirestore.collection(getString(R.string.ColProj)).document(idProjecte);
         docRef.update("notes", notesList).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {

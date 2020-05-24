@@ -1,13 +1,11 @@
 package com.example.codesign.Projecte;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -16,9 +14,6 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.codesign.Classes.Projectes;
@@ -26,15 +21,11 @@ import com.example.codesign.MeetingsActivity;
 import com.example.codesign.PropertiesActivity;
 import com.example.codesign.R;
 import com.example.codesign.Settings.SettingsActivity;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.firestore.QuerySnapshot;
+
 
 import java.util.List;
 
@@ -173,7 +164,7 @@ public class ProjectActivity extends AppCompatActivity implements View.OnClickLi
 
         mFirestore = FirebaseFirestore.getInstance();
 
-        DocumentReference docRef = mFirestore.collection("projectes").document(idProjecte);
+        DocumentReference docRef = mFirestore.collection(getString(R.string.ColProj)).document(idProjecte);
         docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {

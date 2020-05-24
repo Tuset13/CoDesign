@@ -82,7 +82,7 @@ public class NewProjectActivity extends AppCompatActivity implements View.OnClic
 
         Projectes newProject = new Projectes(admin, partList, notesList, projName, null);
 
-        mFirestore.collection("projectes").add(newProject);
+        mFirestore.collection(getString(R.string.ColProj)).add(newProject);
 
     }
 

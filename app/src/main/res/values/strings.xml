@@ -113,4 +113,10 @@
     <string name="ConRes">ConRes</string>
     <string name="isConnected">isConnected</string>
 
+    <!-- STRINGS DE REUNIONS-->
+    <string name="dateFormat">yyyy-MM-dd HH:mm:ss</string>
+
+    <!-- STRINGS FIRESTORE-->
+    <string name="ColProj">projectes</string>
+    <string name="ColMeet">reunions</string>
 </resources>

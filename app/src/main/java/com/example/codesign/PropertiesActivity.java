@@ -82,7 +82,7 @@ public class PropertiesActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void llegirDades(){
-        DocumentReference docRef = mFirestore.collection("projectes").document(idProjecte);
+        DocumentReference docRef = mFirestore.collection(getString(R.string.ColProj)).document(idProjecte);
         docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -108,7 +108,7 @@ public class PropertiesActivity extends AppCompatActivity implements View.OnClic
 
     private void afegirParticipant(){
         partList.add(editText.getText().toString());
-        DocumentReference docRef = mFirestore.collection("projectes").document(idProjecte);
+        DocumentReference docRef = mFirestore.collection(getString(R.string.ColProj)).document(idProjecte);
         docRef.update("participants", partList);
         llegirDades();
     }

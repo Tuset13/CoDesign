@@ -166,7 +166,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         mFirestore = FirebaseFirestore.getInstance();
 
-        mFirestore.collection("projectes").addSnapshotListener(new EventListener<QuerySnapshot>() {
+        mFirestore.collection(getString(R.string.ColProj)).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
                 if(e != null){
@@ -235,7 +235,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // INSTANCIEM LA DB
         mFirestore = FirebaseFirestore.getInstance();
 
-        mFirestore.collection("projectes").document(project.projecteId)
+        mFirestore.collection(getString(R.string.ColProj)).document(project.projecteId)
                 .delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override

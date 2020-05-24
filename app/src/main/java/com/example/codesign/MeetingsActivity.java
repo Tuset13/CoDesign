@@ -147,7 +147,7 @@ public class MeetingsActivity extends AppCompatActivity implements View.OnClickL
         timeText.setText(timeEdit.getText());
         descText.setText(descEdit.getText());
         if(!timeEdit.getText().toString().equals("")) {
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat format = new SimpleDateFormat(getString(R.string.dateFormat));
             Date date = format.parse(timeEdit.getText().toString());
             time = new Timestamp(date);
         }
@@ -176,11 +176,11 @@ public class MeetingsActivity extends AppCompatActivity implements View.OnClickL
         //CREEM LA REUNIO
         meeting = new Meeting(nameEdit.getText().toString(), descEdit.getText().toString(), time, location);
         //GUARDAR A LA BASE DE DADES
-        mFirestore.collection("reunions").add(meeting).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+        mFirestore.collection(getString(R.string.ColMeet)).add(meeting).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
             @Override
             public void onComplete(@NonNull Task<DocumentReference> task) {
                 DocumentReference docRef = task.getResult();
-                mFirestore.collection("projectes").document(idProjecte).update("reunio", docRef)
+                mFirestore.collection(getString(R.string.ColProj)).document(idProjecte).update("reunio", docRef)
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
@@ -194,7 +194,7 @@ public class MeetingsActivity extends AppCompatActivity implements View.OnClickL
     //FUNCIO PER RECUPERAR DE LA BASE DE DADES
     private void getMeetingFromDataBase() {
 
-        DocumentReference docRef = mFirestore.collection("projectes").document(idProjecte);
+        DocumentReference docRef = mFirestore.collection(getString(R.string.ColProj)).document(idProjecte);
         docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
