@@ -23,7 +23,20 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key"/>
-
+        <!--<meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/logo">
+        </meta-data>
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorAccent">
+        </meta-data>
+        <meta-data android:name="firebase_messaging_auto_init_enabled"
+            android:value="false">
+        </meta-data>
+        <meta-data android:name="firebase_analytics_collection_enabled"
+            android:value="false">
+        </meta-data>-->
         <activity
             android:name=".MainActivity"
             >
@@ -37,14 +50,29 @@
                 <action android:name="android.intent.action.MANAGE_NETWORK_USAGE" />
             </intent-filter>
         </activity>
-        <activity android:name=".NewProjectActivity"></activity>
-        <activity android:name=".InvitationsActivity"></activity>
-        <activity android:name=".Projecte.ProjectActivity" android:screenOrientation="portrait"></activity>
-        <activity android:name=".Projecte.CanvasActivity" android:screenOrientation="portrait"></activity>
-        <activity android:name=".Projecte.NewNoteActivity" android:screenOrientation="portrait"></activity>
-        <activity android:name=".MeetingsActivity" android:screenOrientation="portrait"></activity>
-        <activity android:name=".PropertiesActivity" ></activity>
-        <activity android:name=".Settings.ConnexionActivity" ></activity>
+        <activity android:name=".NewProjectActivity">
+        </activity>
+        <activity android:name=".InvitationsActivity">
+        </activity>
+        <activity android:name=".Projecte.ProjectActivity" android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".Projecte.CanvasActivity" android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".Projecte.NewNoteActivity" android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".MeetingsActivity" android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".PropertiesActivity" >
+        </activity>
+        <activity android:name=".Settings.ConnexionActivity" >
+        </activity>
+        <service android:name=".MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT">
+                </action>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

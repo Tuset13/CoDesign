@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import android.app.Activity;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -21,6 +23,7 @@ import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -35,6 +38,8 @@ import com.example.codesign.Settings.ConnexionActivity;
 import com.example.codesign.Settings.SettingsActivity;
 import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.IdpResponse;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -46,6 +51,8 @@ import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.messaging.FirebaseMessaging;
+
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -83,6 +90,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //Llistar les dades al RecyclerView
         firebaseListData();
+
+        //Comprovem que es tenen els GoogleServices activats
+        comprovarGoogleServices();
+
+        //Suscribim a l'usuari a un topic global, per tal de poder enviar missatges a tots ells
+        suscripcioTopicGlobal();
 
         npButton = findViewById(R.id.NouProjecte);
         iButton = findViewById(R.id.Invitacions);
@@ -253,6 +266,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 });
     }
 
+    private void suscripcioTopicGlobal(){
+
+        FirebaseMessaging.getInstance().subscribeToTopic(getString(R.string.topicglobal))
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(!task.isSuccessful()){
+                            Log.d(TAG, "Unsuccess on subscribing");
+                        }else{
+                            Log.d(TAG, "Subscribed to recive global messages!");
+                        }
+                    }
+                });
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
@@ -323,6 +351,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startActivity(intent);
     }
 
+    private void comprovarGoogleServices(){
+        GoogleApiAvailability googleApi = GoogleApiAvailability.getInstance();
+        if(googleApi.isGooglePlayServicesAvailable(this) != ConnectionResult.SUCCESS){
+            googleApi.makeGooglePlayServicesAvailable(this);
+        }
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -342,5 +377,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         NetworkInfo activeNetwork = conn.getActiveNetworkInfo();
         new CheckConnectivityTask(activeNetwork).execute();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        comprovarGoogleServices();
     }
 }

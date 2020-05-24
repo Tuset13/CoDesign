@@ -119,4 +119,7 @@
     <!-- STRINGS FIRESTORE-->
     <string name="ColProj">projectes</string>
     <string name="ColMeet">reunions</string>
+    <string name="notification_channel_id">iDKnsdnkefunDNWKnn3445</string>
+    <string name="notification_channel_name">CoDesign Messaging</string>
+    <string name="topicglobal">global</string>
 </resources>

@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "349225683202-pob0ihdeh712738iai5112cf49r4ev5e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.codesign",
+            "certificate_hash": "b7313b4c701c7473a47993c23549c6be43f9464a"
+          }
+        },
+        {
           "client_id": "349225683202-41v4i8qe71nmbkjhg0bkrt9ngio581sn.apps.googleusercontent.com",
           "client_type": 3
         }
