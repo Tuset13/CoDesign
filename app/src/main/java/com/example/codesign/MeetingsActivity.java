@@ -10,10 +10,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
 
 import com.example.codesign.Classes.Meeting;
 import com.example.codesign.Classes.Projectes;
@@ -37,7 +37,7 @@ import com.google.firebase.firestore.GeoPoint;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.concurrent.atomic.AtomicInteger;
+
 
 public class MeetingsActivity extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback, GoogleMap.OnMapClickListener {
 
@@ -52,9 +52,10 @@ public class MeetingsActivity extends AppCompatActivity implements View.OnClickL
 
     private FirebaseFirestore mFirestore;
     private String idProjecte;
-    private String projectName;
 
     private Meeting meeting;
+
+    private Projectes projecteReunio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +67,15 @@ public class MeetingsActivity extends AppCompatActivity implements View.OnClickL
 
         editAndSave.setOnClickListener(this);
         back.setOnClickListener(this);
+
+        //Get the edit texts
+        nameEdit = findViewById(R.id.nameEdit);
+        timeEdit = findViewById(R.id.timeEdit);
+        descEdit = findViewById(R.id.descEdit);
+        //Get the TextsViews
+        nameText = findViewById(R.id.nameText);
+        timeText = findViewById(R.id.timeText);
+        descText = findViewById(R.id.descText);
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.FrgMap);
         if (mapFragment != null) {
@@ -79,10 +89,7 @@ public class MeetingsActivity extends AppCompatActivity implements View.OnClickL
 
         //AGAFEM DADES PREVIES DE LA BASE DE DADES
         getMeetingFromDataBase();
-        //SI EXISTEIXEN AQUESTES DADES, LES REPRESENTEM
-        if(meeting != null){
-            showMeeting();
-        }
+
     }
 
     //IMPLEMENTACIONS DE MENU
@@ -136,14 +143,6 @@ public class MeetingsActivity extends AppCompatActivity implements View.OnClickL
 
     //FEM CANVI ALS TEXTS I GUARDEM
     private void save() throws ParseException {
-        //Get the edit texts
-        nameEdit = findViewById(R.id.nameEdit);
-        timeEdit = findViewById(R.id.timeEdit);
-        descEdit = findViewById(R.id.descEdit);
-        //Get the TextsViews
-        nameText = findViewById(R.id.nameText);
-        timeText = findViewById(R.id.timeText);
-        descText = findViewById(R.id.descText);
 
         //ACTUALITZEM ELS TEXTS
         nameText.setText(nameEdit.getText());
@@ -197,32 +196,51 @@ public class MeetingsActivity extends AppCompatActivity implements View.OnClickL
     //FUNCIO PER RECUPERAR DE LA BASE DE DADES
     private void getMeetingFromDataBase() {
 
-        DocumentReference docRef = mFirestore.collection(getString(R.string.ColProj)).document(idProjecte);
-        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+        mFirestore.collection(getString(R.string.ColProj)).document(idProjecte)
+                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    //AGAFEM LA REFERENCIA A LA REUNIO DEL PROJECTE I LA BUSQUEM DINS LA BASE DE DADES
+                    DocumentSnapshot documentSnapshot = task.getResult();
+                    projecteReunio = documentSnapshot.toObject(Projectes.class);
 
-                //AGAFEM LA REFERENCIA A LA REUNIO DEL PROJECTE I LA BUSQUEM DINS LA BASE DE DADES
-                Projectes projecte = documentSnapshot.toObject(Projectes.class);
-                if(projecte.getReunio() != null){
-                    DocumentReference docRef2 = projecte.getReunio();
-                    docRef2.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                        @Override
-                        public void onSuccess(DocumentSnapshot documentSnapshot) {
-                            meeting = documentSnapshot.toObject(Meeting.class);
-                        }
-                    });
+                    agafarReunio();
                 }
-
             }
         });
     }
 
+    private void agafarReunio(){
+
+        if(projecteReunio.getReunio() != null){
+            DocumentReference docRef2 = projecteReunio.getReunio();
+
+            docRef2.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if(task.isSuccessful()){
+                        meeting = task.getResult().toObject(Meeting.class);
+
+                        //SI EXISTEIXEN AQUESTES DADES, LES REPRESENTEM
+                        if(meeting != null){
+                            showMeeting();
+                        }
+
+                    }else{
+                        Log.d(TAG, "No existing Reunion");
+                    }
+                }
+            });
+        }
+    }
+
     private void showMeeting(){
         nameText.setText(meeting.getTitle());
-        timeText.setText(meeting.getTime().toString());
+        timeText.setText(meeting.getTime().toDate().toString());
         descText.setText(meeting.getDescription());
         location = meeting.getLocation();
+        addMapMarker();
     }
 
     //FUNCIONS DEL MAPA
@@ -250,5 +268,15 @@ public class MeetingsActivity extends AppCompatActivity implements View.OnClickL
         mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
 
         mMap.addMarker(markerOptions);
+    }
+
+    private void addMapMarker(){
+
+        double lat = location.getLatitude();
+        double lon = location.getLongitude();
+
+        mMap.addMarker(new MarkerOptions()
+        .position(new LatLng(lat,lon))
+        .title(getString(R.string.Marker)));
     }
 }
