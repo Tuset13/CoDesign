@@ -165,47 +165,4 @@ public class CanvasActivity extends AppCompatActivity implements View.OnClickLis
         intent.putExtra("result",byteArray);
         setResult(RESULT_OK, intent);
     }
-
-    /*private void guardarCanvas(){
-        DocumentReference docRef = mFirestore.collection("projectes").document(idProjecte);
-
-        docRef.update("canvas", myCanvas).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                Log.d(TAG, "DocumentSnapshot successfully updated!");
-            }
-        })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error updating document", e);
-                    }
-                });
-    }
-
-    private void comprovarCanvasExistent(){
-        DocumentReference docRef = mFirestore.collection("projectes").document(idProjecte);
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if(task.isSuccessful()){
-                    DocumentSnapshot document = task.getResult();
-                    if(document.exists()){
-                        Projectes projecte = document.toObject(Projectes.class);
-                        comprovarEquals(projecte);
-                    }else{
-                        Log.d(TAG, "No such document");
-                    }
-                } else{
-                    Log.d(TAG, "get failed with ", task.getException());
-                }
-            }
-        });
-    }
-
-    private void comprovarEquals(Projectes projecte){
-        if(projecte.getCanvas() != null){
-            myCanvas = projecte.getCanvas();
-        }
-    }*/
 }
