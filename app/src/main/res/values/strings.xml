@@ -101,6 +101,8 @@
     <string name="NameExample">Example Titol</string>
     <string name="TimeExample">YYYY-MM-DD hh:mm:ss</string>
     <string name="DescExample">Description example</string>
+    <string name="DescHint">Inserta la descripció aquí…</string>
+    <string name="TitleHint">Títol de la Reunió</string>
 
     <!--STRINGS DE PANTALLA PARTICIPANTS-->
     <string name="TitleProperties">Nom del Projecte</string>

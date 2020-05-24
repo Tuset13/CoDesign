@@ -74,6 +74,7 @@
                 android:textSize="16sp"
                 android:layout_margin="8dp"
                 android:padding="5dp"
+                android:hint="@string/TitleHint"
                 android:background="@drawable/input">
             </EditText>
 
@@ -146,6 +147,7 @@
                 android:textSize="16sp"
                 android:layout_margin="8dp"
                 android:padding="5dp"
+                android:hint="@string/DescHint"
                 android:background="@drawable/input">
             </EditText>
         </LinearLayout>

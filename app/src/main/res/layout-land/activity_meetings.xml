@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="@string/Meetings"
+        android:textSize="34sp"
+        android:textColor="@color/secondary"
+        android:fontFamily="@font/worksans_light"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <fragment
+            android:id="@+id/FrgMap"
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            class="com.google.android.gms.maps.SupportMapFragment"
+            android:layout_weight="1" />
+
+        <View
+            android:layout_width="4dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimary"/>
+
+        <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_margin="15dp"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/NameMeeting"
+                        android:textStyle="bold"
+                        android:textSize="18sp">
+
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/nameText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="visible"
+                        android:text="@string/NameExample"
+                        android:layout_marginStart="8dp"
+                        android:textSize="16sp">
+
+                    </TextView>
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/nameEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="invisible"
+                    android:textSize="16sp"
+                    android:layout_margin="8dp"
+                    android:padding="5dp"
+                    android:hint="@string/TitleHint"
+                    android:background="@drawable/input">
+                </EditText>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/TimeMeeting"
+                        android:textStyle="bold"
+                        android:textSize="18sp">
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/timeText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="visible"
+                        android:text="@string/TimeExample"
+                        android:layout_marginStart="8dp"
+                        android:textSize="16sp">
+                    </TextView>
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/timeEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="invisible"
+                    android:textSize="16sp"
+                    android:layout_margin="8dp"
+                    android:padding="5dp"
+                    android:background="@drawable/input"
+                    android:hint="@string/TimeExample">
+                </EditText>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/DescMeeting"
+                        android:textStyle="bold"
+                        android:textSize="18sp">
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/descText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="visible"
+                        android:text="@string/DescExample"
+                        android:layout_marginStart="8dp"
+                        android:textSize="16sp">
+                    </TextView>
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/descEdit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="invisible"
+                    android:textSize="16sp"
+                    android:layout_margin="8dp"
+                    android:padding="5dp"
+                    android:hint="@string/DescHint"
+                    android:background="@drawable/input">
+                </EditText>
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:background="@color/colorPrimary">
+
+        <Button
+            android:id="@+id/editAndSave"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/EditMeeting"
+            android:layout_margin="10dp"
+            android:padding="10dp"
+            android:elevation="10dp"
+            android:background="@drawable/rounded_button"/>
+
+        <Button
+            android:id="@+id/TornarReunio"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/tornar"
+            android:background="@drawable/rounded_button"
+            android:padding="10dp"
+            android:layout_margin="10dp"
+            android:elevation="5dp"
+            android:drawableStart="@drawable/ic_tornar"/>
+    </LinearLayout>
+
+</LinearLayout>
