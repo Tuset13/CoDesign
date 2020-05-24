@@ -237,10 +237,12 @@ public class MeetingsActivity extends AppCompatActivity implements View.OnClickL
 
     private void showMeeting(){
         nameText.setText(meeting.getTitle());
-        timeText.setText(meeting.getTime().toDate().toString());
+        if(meeting.getTime() != null)
+            timeText.setText(meeting.getTime().toDate().toString());
         descText.setText(meeting.getDescription());
         location = meeting.getLocation();
-        addMapMarker();
+        if(location !=null)
+            addMapMarker();
     }
 
     //FUNCIONS DEL MAPA
