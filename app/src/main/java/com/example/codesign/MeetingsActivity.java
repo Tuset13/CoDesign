@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.codesign.Classes.Meeting;
+import com.example.codesign.Classes.Projectes;
 import com.example.codesign.Settings.SettingsActivity;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -23,12 +24,18 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
 
-import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class MeetingsActivity extends AppCompatActivity implements View.OnClickListener, OnMapReadyCallback, GoogleMap.OnMapClickListener {
 
@@ -37,7 +44,7 @@ public class MeetingsActivity extends AppCompatActivity implements View.OnClickL
     Button editAndSave, back;
     EditText nameEdit,timeEdit,descEdit;
     TextView nameText,timeText,descText;
-    Timestamp time;
+    com.google.firebase.Timestamp time;
     private GoogleMap mMap;
     private GeoPoint location;
 
@@ -109,7 +116,11 @@ public class MeetingsActivity extends AppCompatActivity implements View.OnClickL
                     edit();
                 } else {
                     editAndSave.setText(R.string.EditMeeting);
-                    save();
+                    try {
+                        save();
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                     saveOnDataBase();
                 }
                 break;
@@ -121,7 +132,7 @@ public class MeetingsActivity extends AppCompatActivity implements View.OnClickL
     }
 
     //FEM CANVI ALS TEXTS I GUARDEM
-    private void save() {
+    private void save() throws ParseException {
         //Get the edit texts
         nameEdit = findViewById(R.id.nameEdit);
         timeEdit = findViewById(R.id.timeEdit);
@@ -136,7 +147,9 @@ public class MeetingsActivity extends AppCompatActivity implements View.OnClickL
         timeText.setText(timeEdit.getText());
         descText.setText(descEdit.getText());
         if(!timeEdit.getText().toString().equals("")) {
-            time = Timestamp.valueOf(timeEdit.getText().toString());
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date date = format.parse(timeEdit.getText().toString());
+            time = new Timestamp(date);
         }
         nameEdit.setVisibility(View.INVISIBLE);
         timeEdit.setVisibility(View.INVISIBLE);
@@ -181,10 +194,32 @@ public class MeetingsActivity extends AppCompatActivity implements View.OnClickL
     //FUNCIO PER RECUPERAR DE LA BASE DE DADES
     private void getMeetingFromDataBase() {
 
+        DocumentReference docRef = mFirestore.collection("projectes").document(idProjecte);
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+
+                //AGAFEM LA REFERENCIA A LA REUNIO DEL PROJECTE I LA BUSQUEM DINS LA BASE DE DADES
+                Projectes projecte = documentSnapshot.toObject(Projectes.class);
+                if(projecte.getReunio() != null){
+                    DocumentReference docRef2 = projecte.getReunio();
+                    docRef2.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            meeting = documentSnapshot.toObject(Meeting.class);
+                        }
+                    });
+                }
+
+            }
+        });
     }
 
     private void showMeeting(){
-
+        nameText.setText(meeting.getTitle());
+        timeText.setText(meeting.getTime().toString());
+        descText.setText(meeting.getDescription());
+        location = meeting.getLocation();
     }
 
     //FUNCIONS DEL MAPA

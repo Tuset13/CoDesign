@@ -1,17 +1,18 @@
 package com.example.codesign.Classes;
 
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.GeoPoint;
-
-import java.sql.Timestamp;
 
 public class Meeting {
 
     private String title;
     private String description;
-    private Timestamp time;
+    private com.google.firebase.Timestamp time;
     private GeoPoint location;
 
-    public Meeting(String title, String description, Timestamp time, GeoPoint location){
+    public Meeting(){}
+
+    public Meeting(String title, String description, com.google.firebase.Timestamp time, GeoPoint location){
         this.title = title;
         this.description = description;
         this.time = time;
@@ -42,7 +43,7 @@ public class Meeting {
         this.description = description;
     }
 
-    public void setTime(Timestamp time) {
+    public void setTime(com.google.firebase.Timestamp time) {
         this.time = time;
     }
 
