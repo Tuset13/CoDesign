@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -74,6 +75,7 @@ public class MeetingsActivity extends AppCompatActivity implements View.OnClickL
 
         editAndSave.setOnClickListener(this);
         back.setOnClickListener(this);
+
 
         //Get the edit texts
         nameEdit = findViewById(R.id.nameEdit);
@@ -256,17 +258,13 @@ public class MeetingsActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
         mMap.setOnMapClickListener(this);
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-            != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
-            != PackageManager.PERMISSION_GRANTED) {
-            Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            double longitude = location.getLongitude();
-            double latitude = location.getLatitude();
-            LatLng pos = new LatLng(longitude, latitude);
-            mMap.animateCamera(CameraUpdateFactory.newLatLng(pos));
+
+        int check = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
+        if (check == PackageManager.PERMISSION_GRANTED) {
+
+        } else {
+            ActivityCompat.requestPermissions( this, new String[] {android.Manifest.permission.ACCESS_COARSE_LOCATION},0);
         }
     }
 
