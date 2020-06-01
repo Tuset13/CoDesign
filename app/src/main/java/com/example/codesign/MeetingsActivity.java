@@ -1,6 +1,11 @@
 package com.example.codesign;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -14,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.example.codesign.Classes.Meeting;
 import com.example.codesign.Classes.Projectes;
@@ -44,11 +50,12 @@ public class MeetingsActivity extends AppCompatActivity implements View.OnClickL
     private static final String TAG = "FireLog";
 
     Button editAndSave, back;
-    EditText nameEdit,timeEdit,descEdit;
-    TextView nameText,timeText,descText;
+    EditText nameEdit, timeEdit, descEdit;
+    TextView nameText, timeText, descText;
     com.google.firebase.Timestamp time;
     private GoogleMap mMap;
     private GeoPoint location;
+    protected LocationManager locationManager;
 
     private FirebaseFirestore mFirestore;
     private String idProjecte;
@@ -79,7 +86,7 @@ public class MeetingsActivity extends AppCompatActivity implements View.OnClickL
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.FrgMap);
         if (mapFragment != null) {
-            mapFragment.getMapAsync( this);
+            mapFragment.getMapAsync(this);
         }
 
         mFirestore = FirebaseFirestore.getInstance();
@@ -121,7 +128,7 @@ public class MeetingsActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.editAndSave:
-                if(editAndSave.getText() == getString(R.string.EditMeeting)) {
+                if (editAndSave.getText() == getString(R.string.EditMeeting)) {
                     editAndSave.setText(R.string.SaveMeeting);
                     edit();
                 } else {
@@ -148,7 +155,7 @@ public class MeetingsActivity extends AppCompatActivity implements View.OnClickL
         nameText.setText(nameEdit.getText());
         timeText.setText(timeEdit.getText());
         descText.setText(descEdit.getText());
-        if(!timeEdit.getText().toString().equals("")) {
+        if (!timeEdit.getText().toString().equals("")) {
             SimpleDateFormat format = new SimpleDateFormat(getString(R.string.dateFormat));
             Date date = format.parse(timeEdit.getText().toString());
             time = new Timestamp(date);
@@ -200,7 +207,7 @@ public class MeetingsActivity extends AppCompatActivity implements View.OnClickL
                 .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     //AGAFEM LA REFERENCIA A LA REUNIO DEL PROJECTE I LA BUSQUEM DINS LA BASE DE DADES
                     DocumentSnapshot documentSnapshot = task.getResult();
                     projecteReunio = documentSnapshot.toObject(Projectes.class);
@@ -211,23 +218,23 @@ public class MeetingsActivity extends AppCompatActivity implements View.OnClickL
         });
     }
 
-    private void agafarReunio(){
+    private void agafarReunio() {
 
-        if(projecteReunio.getReunio() != null){
+        if (projecteReunio.getReunio() != null) {
             DocumentReference docRef2 = projecteReunio.getReunio();
 
             docRef2.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if(task.isSuccessful()){
+                    if (task.isSuccessful()) {
                         meeting = task.getResult().toObject(Meeting.class);
 
                         //SI EXISTEIXEN AQUESTES DADES, LES REPRESENTEM
-                        if(meeting != null){
+                        if (meeting != null) {
                             showMeeting();
                         }
 
-                    }else{
+                    } else {
                         Log.d(TAG, "No existing Reunion");
                     }
                 }
@@ -235,13 +242,13 @@ public class MeetingsActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
-    private void showMeeting(){
+    private void showMeeting() {
         nameText.setText(meeting.getTitle());
-        if(meeting.getTime() != null)
+        if (meeting.getTime() != null)
             timeText.setText(meeting.getTime().toDate().toString());
         descText.setText(meeting.getDescription());
         location = meeting.getLocation();
-        if(location !=null)
+        if (location != null)
             addMapMarker();
     }
 
@@ -251,7 +258,16 @@ public class MeetingsActivity extends AppCompatActivity implements View.OnClickL
         mMap = googleMap;
 
         mMap.setOnMapClickListener(this);
-        //TODO
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED) {
+            Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            double longitude = location.getLongitude();
+            double latitude = location.getLatitude();
+            LatLng pos = new LatLng(longitude, latitude);
+            mMap.animateCamera(CameraUpdateFactory.newLatLng(pos));
+        }
     }
 
     @Override
