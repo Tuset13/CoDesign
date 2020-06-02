@@ -260,8 +260,9 @@ public class MeetingsActivity extends AppCompatActivity implements View.OnClickL
         mMap = googleMap;
         mMap.setOnMapClickListener(this);
 
-        int check = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
-        if (check == PackageManager.PERMISSION_GRANTED) {
+        int checkCoarse = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
+        int checkFine = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION);
+        if (checkCoarse == PackageManager.PERMISSION_GRANTED && checkFine == PackageManager.PERMISSION_GRANTED ) {
             locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
             if (locationManager != null) {
                 Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
