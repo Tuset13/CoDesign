@@ -262,7 +262,11 @@ public class MeetingsActivity extends AppCompatActivity implements View.OnClickL
 
         int check = ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
         if (check == PackageManager.PERMISSION_GRANTED) {
-
+            Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            double longitude = location.getLongitude();
+            double latitude = location.getLatitude();
+            LatLng pos = new LatLng(longitude, latitude);
+            mMap.animateCamera(CameraUpdateFactory.newLatLng(pos));
         } else {
             ActivityCompat.requestPermissions( this, new String[] {android.Manifest.permission.ACCESS_COARSE_LOCATION},0);
         }
