@@ -273,6 +273,7 @@ public class MeetingsActivity extends AppCompatActivity implements View.OnClickL
             }
         } else {
             ActivityCompat.requestPermissions( this, new String[] {android.Manifest.permission.ACCESS_COARSE_LOCATION},0);
+            ActivityCompat.requestPermissions( this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION},1);
         }
     }
 
